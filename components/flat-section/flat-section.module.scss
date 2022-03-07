@@ -1,0 +1,24 @@
+@use '../../styles/mixins.scss' as mixins;
+@import '../../styles/colors.scss';
+
+section {
+  .subtitle {
+    color: $blue-2;
+    @apply w-64 hidden md:block;
+
+    h3,
+    h4 {
+      @apply my-4 font-extrabold;
+    }
+
+    h4 {
+      @apply text-xl;
+    }
+  }
+}
+
+.btn {
+  &__primary {
+    @include mixins.button;
+  }
+}

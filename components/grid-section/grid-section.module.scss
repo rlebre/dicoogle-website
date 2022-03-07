@@ -1,0 +1,14 @@
+@use '../../styles/mixins.scss' as mixins;
+@import '../../styles/colors.scss';
+
+section {
+  .subtitle {
+    color: $blue-2;
+  }
+}
+
+.btn {
+  &__primary {
+    @include mixins.button;
+  }
+}
