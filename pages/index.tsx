@@ -7,6 +7,7 @@ import Navbar from '../components/navbar/Navbar';
 import GridSection from '../components/grid-section/GridSection';
 import styles from '../styles/Home.module.scss';
 import FlatSection from '../components/flat-section/FlatSection';
+import Slider from '../components/slider/Slider';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -113,6 +114,8 @@ const Home: NextPage = () => {
       <Navbar />
 
       <div className={styles.container}>
+        <Slider />
+
         <main className={styles.main}>
           <FlatSection title='About' />
 
