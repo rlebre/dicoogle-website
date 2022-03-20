@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-  [name: string]: string;
+  [name: string]: string | number;
 }
 
 const Logo = (props: Props) => {

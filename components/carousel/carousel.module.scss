@@ -1,0 +1,44 @@
+.container {
+  @apply flex;
+  background: #cbe0f2;
+}
+
+.carousel {
+  overflow: hidden;
+  @apply max-w-7xl mx-auto flex items-center relative;
+
+  &__inner {
+    white-space: nowrap;
+    transition: transform 0.3s;
+  }
+
+  &__item {
+    @apply inline-flex items-center justify-center bg-green-400 text-white;
+  }
+}
+
+.indicator {
+  @apply flex justify-center;
+
+  &__left {
+    @apply md:px-8 text-white h-full;
+    @apply bg-gradient-to-r from-gray-800 opacity-20 hover:opacity-50;
+  }
+
+  &__right {
+    @apply md:px-8 text-white h-full;
+    @apply bg-gradient-to-l from-gray-800 opacity-20 hover:opacity-50;
+  }
+
+  &s {
+    @apply absolute bottom-0 right-0 left-0 flex justify-center space-x-3 pb-5;
+  }
+
+  &__button {
+    @apply bg-white h-1 w-4 md:w-8;
+
+    &__active {
+      background: #356287;
+    }
+  }
+}

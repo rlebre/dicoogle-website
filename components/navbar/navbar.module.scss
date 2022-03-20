@@ -5,11 +5,15 @@
   }
 
   &__link {
-    @apply text-gray-700 border-b border-gray-100 active:rounded-lg md:border-0 block font-bold pl-3 pr-4 py-2 md:hover:text-blue-400 md:p-0;
+    @apply text-gray-700  border-gray-100 active:rounded-lg md:border-0 block font-bold pl-3 pr-4 py-2 md:hover:text-blue-400 md:p-0;
     @apply transition ease-in-out duration-150 hover:scale-105;
 
     &__download {
       @apply rounded-md bg-blue-500 text-blue-50 p-2 hover:bg-blue-700 hover:text-blue-50 w-fit;
     }
   }
+}
+
+.custom {
+  transition: height 0.2s ease-in-out;
 }
