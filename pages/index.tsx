@@ -8,8 +8,9 @@ import GridSection from '../components/grid-section/GridSection';
 import styles from '../styles/Home.module.scss';
 import FlatSection from '../components/flat-section/FlatSection';
 import Carousel, { CarouselItem } from '../components/carousel/Carousel';
-import Button from '../components/button/button';
 import ScrollToTheTop from '../components/scroll-top/ScrollToTheTop';
+import Link from 'next/link';
+import Button from '../components/button/Button';
 
 const applications = [
   {
@@ -43,14 +44,14 @@ const applications = [
 
 const features = [
   {
-    imageUrl: '/images/applications/teaching_icon.png',
+    imageUrl: '/images/features/expand.svg',
     imageHeight: '20',
     imageWidth: '20',
-    title: 'Expansible',
+    title: 'Expandable',
     description: ['Plugin based architecture', 'SDK ready to boost new features development'],
   },
   {
-    imageUrl: '/images/applications/professional_icon.png',
+    imageUrl: '/images/features/scale.svg',
     imageHeight: '20',
     imageWidth: '20',
     title: 'Scalable',
@@ -61,14 +62,14 @@ const features = [
     ],
   },
   {
-    imageUrl: '/images/features/expand.svg',
+    imageUrl: '/images/features/service-api.svg',
     imageHeight: '20',
     imageWidth: '20',
     title: 'DICOM Services',
     description: ['Storage', 'Query/Retrieve', 'DICOMWeb', 'Extensible with additional plugins and modules'],
   },
   {
-    imageUrl: '/images/applications/teaching_icon.png',
+    imageUrl: '/images/features/indexing.svg',
     imageHeight: '20',
     imageWidth: '20',
     title: 'Indexing/Query Engine',
@@ -78,7 +79,7 @@ const features = [
     ],
   },
   {
-    imageUrl: '/images/applications/professional_icon.png',
+    imageUrl: '/images/features/user-interface.svg',
     imageHeight: '20',
     imageWidth: '20',
     title: 'Web User Interface',
@@ -88,7 +89,7 @@ const features = [
     ],
   },
   {
-    imageUrl: '/images/applications/professional_icon.png',
+    imageUrl: '/images/features/opensource.svg',
     imageHeight: '20',
     imageWidth: '20',
     title: 'Open-source',
@@ -162,9 +163,30 @@ const Home: NextPage = () => {
           </GridSection>
 
           <GridSection title='Resources'>
-            {resources.map((resource) => (
-              <Button key={`resource-${resource.title}`} href={resource.link} label={resource.title} style='button2' />
-            ))}
+            <>
+              <div className='w-full'>
+                <p>Dicoogle is a free and open source software.</p>
+                <p>The code is available and you can freely contribute to its development.</p>
+
+                <p>
+                  Dicoogle source code is under{' '}
+                  <Link href='http://www.gnu.org/copyleft/gpl.en.html'>
+                    <a rel='nofollow noreferrer' target='_blank' className='font-semibold'>
+                      GNU General Public License v3.0.
+                    </a>
+                  </Link>
+                </p>
+              </div>
+
+              {resources.map((resource) => (
+                <Button
+                  key={`resource-${resource.title}`}
+                  href={resource.link}
+                  label={resource.title}
+                  style='button2'
+                />
+              ))}
+            </>
           </GridSection>
         </main>
       </div>
