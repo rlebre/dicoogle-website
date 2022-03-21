@@ -1,9 +1,10 @@
-@mixin button {
+@use './colors.scss' as colors;
+
+@mixin btn {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
   font-size: 14px;
-  font-weight: 400;
   line-height: 1.42857143;
   text-align: center;
   white-space: nowrap;
@@ -18,15 +19,34 @@
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
+}
 
-  color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
+@mixin button1 {
+  @include btn;
+
+  color: colors.$white;
+  background-color: colors.$blue-2;
+  border-color: colors.$blue-3;
 
   &:focus,
   &:hover {
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
+    color: colors.$white;
+    background-color: colors.$blue-4;
+    border-color: colors.$blue-5;
+  }
+}
+
+@mixin button2 {
+  @include btn;
+
+  @apply my-2 py-3 px-10 border-0 rounded uppercase font-medium w-full mx-10 md:mx-0 md:w-fit;
+  @apply hover:drop-shadow-xl transition-all duration-300;
+
+  background: colors.$gray-2;
+  color: colors.$white;
+
+  &:hover {
+    background: black;
+    color: white;
   }
 }

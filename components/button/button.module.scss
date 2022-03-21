@@ -1,0 +1,9 @@
+@use '../../styles/mixins.scss' as mixins;
+
+.button1 {
+  @include mixins.button1;
+}
+
+.button2 {
+  @include mixins.button2;
+}
