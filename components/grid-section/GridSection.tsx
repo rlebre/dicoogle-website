@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from './grid-section.module.scss';
 
 interface Props {
-  title: string;
+  title?: string;
   children?: JSX.Element | JSX.Element[] | string;
 }
 
@@ -14,7 +14,7 @@ const GridSection = ({ title, children }: Props) => {
         <span>{title}</span>
       </h1>
 
-      {children && <div className='flex flex-wrap justify-between'>{children}</div>}
+      {children && <div className='flex flex-wrap justify-between gap-y-8'>{children}</div>}
     </section>
   );
 };

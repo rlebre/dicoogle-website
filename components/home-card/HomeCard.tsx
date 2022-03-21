@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import styles from './home-card.module.scss';
 
 interface Props {
   imageUrl: string;

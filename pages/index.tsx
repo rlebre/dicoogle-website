@@ -8,10 +8,8 @@ import GridSection from '../components/grid-section/GridSection';
 import styles from '../styles/Home.module.scss';
 import FlatSection from '../components/flat-section/FlatSection';
 import Carousel, { CarouselItem } from '../components/carousel/Carousel';
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
+import Button from '../components/button/button';
+import ScrollToTheTop from '../components/scroll-top/ScrollToTheTop';
 
 const applications = [
   {
@@ -102,6 +100,25 @@ const features = [
   },
 ];
 
+const resources = [
+  {
+    title: 'Download',
+    link: '/downloads',
+  },
+  {
+    title: 'Documentation',
+    link: 'https://bioinformatics-ua.github.io/dicoogle-api/',
+  },
+  {
+    title: 'View on Github',
+    link: 'https://github.com/bioinformatics-ua/dicoogle',
+  },
+  {
+    title: 'References',
+    link: '/references',
+  },
+];
+
 const Home: NextPage = () => {
   return (
     <div>
@@ -115,16 +132,16 @@ const Home: NextPage = () => {
 
       <Carousel>
         <CarouselItem>
-          <img src='/images/slider/01.png' className='h-full w-full' alt='Wild Landscape' />
+          <img src='/images/slider/01.png' alt='Wild Landscape' />
         </CarouselItem>
         <CarouselItem>
-          <img src='/images/slider/02.png' className='h-full w-full' alt='Camera' />
+          <img src='/images/slider/02.png' alt='Camera' />
         </CarouselItem>
         <CarouselItem>
-          <img src='/images/slider/03.png' className='h-full w-full' alt='Exotic Fruits' />
+          <img src='/images/slider/03.png' alt='Exotic Fruits' />
         </CarouselItem>
         <CarouselItem>
-          <img src='/images/slider/04.png' className='h-full w-full' alt='Exotic Fruits' />
+          <img src='/images/slider/04.png' alt='Exotic Fruits' />
         </CarouselItem>
       </Carousel>
 
@@ -134,19 +151,27 @@ const Home: NextPage = () => {
 
           <GridSection title='Applications'>
             {applications.map((application) => (
-              <HomeCard key={application.title} {...application}></HomeCard>
+              <HomeCard key={`application-${application.title}`} {...application}></HomeCard>
             ))}
           </GridSection>
 
-          <GridSection title='features'>
-            {features.map((application) => (
-              <HomeCard key={`feature-${application.title}`} {...application}></HomeCard>
+          <GridSection title='Features'>
+            {features.map((feature) => (
+              <HomeCard key={`feature-${feature.title}`} {...feature}></HomeCard>
+            ))}
+          </GridSection>
+
+          <GridSection title='Resources'>
+            {resources.map((resource) => (
+              <Button key={`resource-${resource.title}`} href={resource.link} label={resource.title} style='button2' />
             ))}
           </GridSection>
         </main>
       </div>
 
       <Footer />
+
+      <ScrollToTheTop />
     </div>
   );
 };

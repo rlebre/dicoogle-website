@@ -19,6 +19,6 @@ section {
 
 .btn {
   &__primary {
-    @include mixins.button;
+    @include mixins.button1;
   }
 }
