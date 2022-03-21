@@ -1,0 +1,11 @@
+@use '../../styles/colors.scss' as colors;
+
+.button {
+  @apply inline-flex items-center p-2 rounded-md shadow-sm text-white;
+  background: colors.$blue-4;
+
+  &:hover {
+    background: colors.$blue-5;
+    @apply drop-shadow-2xl;
+  }
+}
