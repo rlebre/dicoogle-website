@@ -1,10 +1,12 @@
+@use '../../styles/colors.scss' as colors;
+
 .footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
   border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+
+  background: colors.$gray-2;
+  min-height: 200px;
+
+  @apply flex flex-col items-center gap-y-4 pt-10;
 
   a {
     display: flex;
@@ -12,9 +14,16 @@
     align-items: center;
     flex-grow: 1;
   }
+
+  &__logos {
+    @apply flex flex-col md:flex-row justify-center items-center gap-14;
+  }
+
+  &__funding {
+    @apply text-white font-medium text-xs flex justify-center text-center pb-8;
+  }
 }
 
 .logo {
-  height: 1em;
   margin-left: 0.5rem;
 }
