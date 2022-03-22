@@ -83,7 +83,10 @@ const DownloadForm = ({ countries }: Props) => {
             <label htmlFor='country' className='text-sm font-medium'>
               Country
             </label>
-            <select name='country' placeholder='Country*'>
+            <select
+              placeholder='Country*'
+              {...register('country', { required: true, value: { Code: '', Name: 'Country*' } })}
+            >
               {countries.map((country) => (
                 <option key={country.Code} value={country.Name}>
                   {country.Name}
@@ -123,7 +126,7 @@ const DownloadForm = ({ countries }: Props) => {
           <div className='w-full text-sm'>
             <div className='flex items-center gap-4'>
               <input type='checkbox' className='w-fit' {...register('newsletter')} />
-              <label htmlFor='gdprAgreed'>I want to receive major updates and news about Dicoogle.</label>
+              <label htmlFor='newsletter'>I want to receive major updates and news about Dicoogle.</label>
             </div>
           </div>
 
