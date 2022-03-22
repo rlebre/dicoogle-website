@@ -1,0 +1,5 @@
+@use '../../../styles/mixins.scss' as mixins;
+
+.submit-button {
+  @include mixins.button1;
+}

@@ -3,33 +3,31 @@ import Image from 'next/image';
 import styles from './flat-section.module.scss';
 
 interface Props {
-  title: string;
-  subtitle?: string;
-  description?: string;
+  title?: string;
+  subtitle1?: string;
+  subtitle2?: string;
   children?: JSX.Element | JSX.Element[];
 }
 
-const FlatSection = ({ title, subtitle, description, children }: Props) => {
+const FlatSection = ({ title, subtitle1, subtitle2, children }: Props) => {
   return (
     <section className='section'>
-      <h1>
-        <span>{title}</span>
-      </h1>
+      {title && (
+        <h1>
+          <span>{title}</span>
+        </h1>
+      )}
 
       <div className='flex md:space-x-24 text-justify'>
-        <div className={styles.subtitle}>
-          <h3>What is</h3>
-          <h4>Dicoogle</h4>
-        </div>
+        {subtitle1 && subtitle2 && (
+          <div className={styles.subtitle}>
+            <h3>{subtitle1}</h3>
+            <h4>{subtitle2}</h4>
+          </div>
+        )}
 
-        <div className='flex items-center'>
-          Dicoogle is an open source Picture Archiving and Communications System (PACS) archive. Its modular
-          architecture allows the quick development of new functionalities, due the availability of a Software
-          Development Kit (SDK).
-        </div>
+        {children && <div className='flex flex-col md:columns-3 space-y-4'>{children}</div>}
       </div>
-
-      {children && <div className='md:columns-3 space-y-12 md:space-x-12'>{children}</div>}
     </section>
   );
 };
