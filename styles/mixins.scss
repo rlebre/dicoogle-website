@@ -23,6 +23,7 @@
 
 @mixin button1 {
   @include btn;
+  @apply md:w-fit;
 
   color: colors.$white;
   background-color: colors.$blue-2;
@@ -39,7 +40,7 @@
 @mixin button2 {
   @include btn;
 
-  @apply my-2 py-3 px-10 border-0 rounded uppercase font-medium w-full mx-10 md:mx-0 md:w-fit;
+  @apply my-2 py-3 px-10 border-0 rounded uppercase font-medium w-full  mx-10 md:mx-0 md:w-fit;
   @apply hover:drop-shadow-xl transition-all duration-300;
 
   background: colors.$gray-2;

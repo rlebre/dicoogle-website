@@ -71,3 +71,33 @@ p {
 .section {
   @apply mb-24;
 }
+
+.container {
+  @apply mx-auto md:max-w-6xl max-w-sm;
+}
+
+.contact-form {
+  input,
+  select {
+    border: 1px solid #e8e8e8;
+    padding: 8px 14px;
+    width: 100%;
+    @apply rounded-md focus:drop-shadow-sm;
+  }
+
+  select {
+    @apply w-fit focus-visible:outline-none max-w-xs md:max-w-none;
+  }
+
+  input[type='checkbox'] {
+    padding: 0;
+    @apply w-fit;
+  }
+
+  textarea {
+    border: 1px solid #e8e8e8;
+    padding: 8px 14px;
+    width: 100%;
+    @apply rounded-md focus:drop-shadow-sm;
+  }
+}
