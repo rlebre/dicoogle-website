@@ -2,9 +2,9 @@ import path from 'path';
 import fs from 'fs';
 import React from 'react';
 import FlatSection from '../components/flat-section/FlatSection';
-import ContactForm from '../components/forms/contact/ContactForm';
 import Country from '../interfaces/Country';
-import DownloadForm from '../components/forms/download/DownloadFOrm';
+import DownloadForm from '../components/forms/download/DownloadForm';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 interface Release {
   id: number;
@@ -22,7 +22,7 @@ interface Props {
 const Downloads = ({ releases, countries }: Props) => {
   return (
     <div className='container pt-16'>
-      <FlatSection title='About us'>
+      <FlatSection title='Downloads'>
         <div className='w-full'>
           <div className='border border-gray-300 rounded-md w-full'>
             <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
@@ -55,7 +55,9 @@ const Downloads = ({ releases, countries }: Props) => {
               </div>
 
               <div className='md:w-3/5 md:pl-4'>
-                <DownloadForm countries={countries} />
+                <GoogleReCaptchaProvider reCaptchaKey={`${process.env.NEXT_PUBLIC_RECAPTCHA}`}>
+                  <DownloadForm countries={countries} />
+                </GoogleReCaptchaProvider>
               </div>
             </div>
           </div>
@@ -341,23 +343,14 @@ export const getStaticProps = async () => {
     },
   ];
 
-  //   const dataFilePath = path.join(process.cwd(), 'public/resources', 'countries.json');
-  //   const fileContents = fs.readFileSync(dataFilePath, 'utf8');
-  //   const countries: Country[] = JSON.parse(fileContents);
+  const dataFilePath = path.join(process.cwd(), 'public/resources', 'countries.json');
+  const fileContents = fs.readFileSync(dataFilePath, 'utf8');
+  const countries: Country[] = JSON.parse(fileContents);
 
   return {
     props: {
       releases: releases.filter((release) => release.downloadLink !== ''),
-      countries: [
-        {
-          'Code': 'AF',
-          'Name': 'Afghanistan',
-        },
-        {
-          'Code': 'AX',
-          'Name': '\u00c5land Islands',
-        },
-      ],
+      countries,
     },
   };
 };

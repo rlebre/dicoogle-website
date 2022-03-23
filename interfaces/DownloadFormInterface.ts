@@ -9,4 +9,5 @@ export default interface ContactFormInterface {
   pluginsSourceCode: boolean;
   newsletter: boolean;
   gdprAgreed: boolean;
+  recaptchaToken?: string;
 }

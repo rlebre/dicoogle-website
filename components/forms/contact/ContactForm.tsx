@@ -16,7 +16,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form className='contact-form' onSubmit={handleSubmit(onFormSubmit)}>
+    <form className='form' onSubmit={handleSubmit(onFormSubmit)}>
       <div className='flex flex-col gap-y-3'>
         <div>
           <label htmlFor='name' className='text-sm font-medium'>
@@ -25,7 +25,7 @@ const ContactForm = () => {
           <input
             placeholder='Name*'
             {...register('name', { required: true })}
-            className={errors?.name ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}
+            className={`form__field  ${errors?.name ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
           />
           {errors?.name?.type === 'required' && <p className='text-red-600 text-sm font-medium'>Name is required.</p>}
         </div>
@@ -43,7 +43,7 @@ const ContactForm = () => {
                 message: 'invalid email address',
               },
             })}
-            className={errors?.email ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}
+            className={`form__field  ${errors?.email ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
           />
           {errors?.email?.type === 'required' && <p className='text-red-600 text-sm font-medium'>Email is required.</p>}
           {errors?.email?.type === 'pattern' && (
@@ -55,7 +55,7 @@ const ContactForm = () => {
           <label htmlFor='subject' className='text-sm font-medium'>
             Subject
           </label>
-          <input placeholder='Subject' {...register('subject')} />
+          <input placeholder='Subject' {...register('subject')} className='form__field' />
         </div>
 
         <div>
@@ -67,7 +67,7 @@ const ContactForm = () => {
             rows={7}
             placeholder='Message*'
             {...register('message', { required: true })}
-            className={errors?.message ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}
+            className={`form__field  ${errors?.email ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
           ></textarea>
 
           {errors?.message?.type === 'required' && (

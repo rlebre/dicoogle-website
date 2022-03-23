@@ -1,16 +1,33 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DownloadFormInterface from '../../../interfaces/DownloadFormInterface';
 import Country from '../../../interfaces/Country';
 import styles from './download-form.module.scss';
 import { Modal } from '../../modal/modal';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 interface Props {
   countries: Country[];
 }
 
 const DownloadForm = ({ countries }: Props) => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const handleReCaptchaVerify = useCallback(async () => {
+    if (!executeRecaptcha) {
+      console.log('Execute recaptcha not yet available');
+      return;
+    }
+
+    const token = await executeRecaptcha('download');
+    return token;
+  }, [executeRecaptcha]);
+
+  // useEffect(() => {
+  //   handleReCaptchaVerify();
+  // }, [handleReCaptchaVerify]);
+
   const {
     register,
     handleSubmit,
@@ -18,8 +35,11 @@ const DownloadForm = ({ countries }: Props) => {
   } = useForm<DownloadFormInterface>();
 
   const onFormSubmit = (data: DownloadFormInterface) => {
-    console.log(errors);
-    console.log(data);
+    handleReCaptchaVerify().then((token) => {
+      console.log(token);
+      console.log(errors);
+      console.log(data);
+    });
   };
 
   return (
@@ -35,7 +55,7 @@ const DownloadForm = ({ countries }: Props) => {
             <input
               placeholder='Name*'
               {...register('name', { required: true })}
-              className={errors?.name ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}
+              className={`form__field  ${errors?.name ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
             />
             {errors?.name?.type === 'required' && <p className='text-red-600 text-sm font-medium'>Name is required.</p>}
           </div>
@@ -53,7 +73,7 @@ const DownloadForm = ({ countries }: Props) => {
                   message: 'invalid email address',
                 },
               })}
-              className={errors?.email ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}
+              className={`form__field  ${errors?.email ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
             />
             {errors?.email?.type === 'required' && (
               <p className='text-red-600 text-sm font-medium'>Email is required.</p>
@@ -72,7 +92,9 @@ const DownloadForm = ({ countries }: Props) => {
               {...register('company', {
                 required: true,
               })}
-              className={errors?.company ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}
+              className={`form__field  ${
+                errors?.company ? ' outline outline-2 outline-red-600' : 'focus:outline-none'
+              }`}
             />
             {errors?.company?.type === 'required' && (
               <p className='text-red-600 text-sm font-medium'>Company is required.</p>
@@ -83,10 +105,10 @@ const DownloadForm = ({ countries }: Props) => {
             <label htmlFor='country' className='text-sm font-medium'>
               Country
             </label>
-            <select
-              placeholder='Country*'
-              {...register('country', { required: true, value: { Code: '', Name: 'Country*' } })}
-            >
+            <select {...register('country', { required: true })} defaultValue='' className='form__field'>
+              <option value='' disabled hidden>
+                Country*
+              </option>
               {countries.map((country) => (
                 <option key={country.Code} value={country.Name}>
                   {country.Name}
@@ -102,7 +124,13 @@ const DownloadForm = ({ countries }: Props) => {
             <label htmlFor='interest' className='text-sm font-medium'>
               Interests
             </label>
-            <input list='interests' name='interest' required placeholder='Dicoogle Interest*' className='w-fit' />
+            <input
+              list='interests'
+              name='interest'
+              required
+              placeholder='Dicoogle Interest*'
+              className='w-fit form__field'
+            />
             <datalist id='interests'>
               <option value='R&D' />
               <option value='Commercial Use' />
@@ -147,8 +175,6 @@ const DownloadForm = ({ countries }: Props) => {
               <p className='text-red-600 text-sm font-medium'>Agree is required.</p>
             )}
           </div>
-
-          <div className='col-sm-12 g-recaptcha' data-sitekey='6Lf1ej4UAAAAAIvVJ6Nf0SGIb2dBGPcjUPq-L0sd'></div>
 
           <button type='submit' className={styles['submit-button']}>
             Request Download
