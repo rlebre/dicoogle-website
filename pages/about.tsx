@@ -3,6 +3,7 @@ import Button from '../components/button/Button';
 import FlatSection from '../components/flat-section/FlatSection';
 import ContactSection from '../components/contact-section/ContactSection';
 import LocationSection from '../components/location-section/LocationSection';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 const About = () => {
   return (
@@ -42,7 +43,9 @@ const About = () => {
           </p>
         </FlatSection>
 
-        <ContactSection />
+        <GoogleReCaptchaProvider reCaptchaKey={`${process.env.NEXT_PUBLIC_RECAPTCHA}`}>
+          <ContactSection />
+        </GoogleReCaptchaProvider>
       </div>
 
       <LocationSection />
