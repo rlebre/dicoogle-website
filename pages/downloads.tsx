@@ -1,76 +1,153 @@
-import path from 'path';
 import fs from 'fs';
-import React from 'react';
-import FlatSection from '../components/flat-section/FlatSection';
-import Country from '../interfaces/Country';
-import DownloadForm from '../components/forms/download/DownloadForm';
+import path from 'path';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-
-interface Release {
-  id: number;
-  tag_name: string;
-  published_at: string;
-  downloadLink: string;
-  body: string;
-}
+import FlatSection from '../components/flat-section/FlatSection';
+import DownloadForm from '../components/forms/download/DownloadForm';
+import { ModalService } from '../components/modal/service';
+import Country from '../interfaces/Country';
+import DownloadFormInterface from '../interfaces/DownloadFormInterface';
+import Release from '../interfaces/GithubRelease';
 
 interface Props {
-  releases: Release[];
   countries: Country[];
+  releases: Release[];
 }
 
 const Downloads = ({ releases, countries }: Props) => {
+  const latestRelease = releases[0];
+  const [selectedRelease, setSelectedRelease] = useState(latestRelease);
+
+  const publishedDate = new Date(latestRelease.published_at).toLocaleDateString('en-EN', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  const onFormSubmit = useCallback(
+    (data: DownloadFormInterface, release: Release, recaptchaToken: string | undefined) => {
+      ModalService.success({ title: 'ola', description: 'descriçao' });
+      console.log(data, release, recaptchaToken);
+    },
+    []
+  );
+
+  const onSelectedVersionChanged = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setSelectedRelease(releases.find((element) => element.id === +event.target.value));
+    },
+    [releases]
+  );
+
   return (
     <div className='container pt-16'>
-      <FlatSection title='Downloads'>
-        <div className='w-full'>
-          <div className='border border-gray-300 rounded-md w-full'>
-            <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
-              <h4 className='text-blue-800'>[NEW]</h4>
-              <b>Dicoogle v3.0.6</b>
-            </div>
-            <div className='p-4 flex flex-col md:flex-row'>
-              <div className='md:w-2/5 md:pr-4 text-sm'>
-                <p>Release date: January 2022</p>
-                <p>To download Dicoogle binaries, please fill in the form.</p>
-                <p>Recomended requirements:</p>
-                <ul className='list-disc list-inside mx-4 mb-4'>
-                  <li>Windows, Linux or Mac OS</li>
-                  <li>
-                    <a
-                      href='https://www.oracle.com/pt/java/technologies/javase/javase8-archive-downloads.html'
-                      target='_blank'
-                      rel='noreferrer'
-                    >
-                      Java 8
-                    </a>
-                  </li>
-                  <li>200 MB System memory</li>
-                  <li>500 MB of free disk space (for DICOM objects)</li>
-                </ul>
-                <p>
-                  Note: The download link will be sent to the e-mail address entered. If the e-mail does not arrive,
-                  please check your Spam inbox.
-                </p>
+      <GoogleReCaptchaProvider reCaptchaKey={`${process.env.NEXT_PUBLIC_RECAPTCHA}`}>
+        <FlatSection title='Latest version'>
+          <div className='w-full'>
+            <div className='border border-gray-300 rounded-md w-full'>
+              <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
+                Dicoogle v{latestRelease.tag_name}
               </div>
+              <div className='p-4 flex flex-col md:flex-row'>
+                <div className='md:w-2/5 md:pr-4 text-sm'>
+                  <p>Release date: {publishedDate}</p>
+                  <p>To download Dicoogle binaries, please fill in the form.</p>
+                  <p>Recomended requirements:</p>
+                  <ul className='list-disc list-inside mx-4 mb-4'>
+                    <li>Windows, Linux or Mac OS</li>
+                    <li>
+                      <a
+                        href='https://www.oracle.com/pt/java/technologies/javase/javase8-archive-downloads.html'
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        Java 8
+                      </a>
+                    </li>
+                    <li>200 MB System memory</li>
+                    <li>500 MB of free disk space (for DICOM objects)</li>
+                  </ul>
+                  <p>
+                    Note: The download link will be sent to the e-mail address entered. If the e-mail does not arrive,
+                    please check your Spam inbox.
+                  </p>
+                  <div className='whitespace-pre-wrap'>
+                    <p> Dicoogle v{latestRelease.tag_name} release notes:</p>
+                    <p>{latestRelease.body}</p>
+                  </div>
+                </div>
 
-              <div className='md:w-3/5 md:pl-4'>
-                <GoogleReCaptchaProvider reCaptchaKey={`${process.env.NEXT_PUBLIC_RECAPTCHA}`}>
-                  <DownloadForm countries={countries} />
-                </GoogleReCaptchaProvider>
+                <div className='md:w-3/5 md:pl-4'>
+                  <DownloadForm countries={countries} release={latestRelease} onSubmit={onFormSubmit} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </FlatSection>
+        </FlatSection>
+
+        <FlatSection title='Previous versions'>
+          <div className='w-full'>
+            <div className='border border-gray-300 rounded-md w-full'>
+              <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
+                Select Dicoogle version:
+                <select
+                  className='bg-gray-500 text-white font-medium border border-gray-300 border-1 rounded-md px-4 py-2'
+                  onChange={onSelectedVersionChanged}
+                >
+                  {releases.map((release) => (
+                    <option key={release.id} value={release.id}>
+                      {release.tag_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className='p-4 flex flex-col md:flex-row'>
+                <div className='md:w-2/5 md:pr-4 text-sm'>
+                  <p>Release date: {publishedDate}</p>
+                  <p>To download Dicoogle binaries, please fill in the form.</p>
+                  <p>Recomended requirements:</p>
+                  <ul className='list-disc list-inside mx-4 mb-4'>
+                    <li>Windows, Linux or Mac OS</li>
+                    <li>
+                      <a
+                        href='https://www.oracle.com/pt/java/technologies/javase/javase8-archive-downloads.html'
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        Java 8
+                      </a>
+                    </li>
+                    <li>200 MB System memory</li>
+                    <li>500 MB of free disk space (for DICOM objects)</li>
+                  </ul>
+                  <p>
+                    Note: The download link will be sent to the e-mail address entered. If the e-mail does not arrive,
+                    please check your Spam inbox.
+                  </p>
+                  <div className='whitespace-pre-wrap'>
+                    <p> Dicoogle v{latestRelease.tag_name} release notes:</p>
+                    <p>{latestRelease.body}</p>
+                  </div>
+                </div>
+
+                <div className='md:w-3/5 md:pl-4'>
+                  <DownloadForm countries={countries} release={selectedRelease} onSubmit={onFormSubmit} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </FlatSection>
+      </GoogleReCaptchaProvider>
     </div>
   );
 };
 
 export const getStaticProps = async () => {
-  //   const ghData = (await axios.get('https://api.github.com/repos/bioinformatics-ua/dicoogle/releases')).data;
+  // const ghData = await getReleases();
 
-  //   const releases = ghData.map(
+  // const releases = ghData
+  //   .map(
   //     (release: any): Release => ({
   //       id: release.id,
   //       tag_name: release.tag_name,
@@ -78,9 +155,13 @@ export const getStaticProps = async () => {
   //       body: release.body,
   //       downloadLink: release.assets[0]?.browser_download_url || '',
   //     }),
+  //   )
+  //   .filter((release) => release.downloadLink !== '')
+  //   .sort(
+  //     (release1: Release, release2: Release) => Date.parse(release2.published_at) - Date.parse(release1.published_at),
   //   );
 
-  const releases = [
+  let releases = [
     {
       id: 62119852,
       tag_name: '3.0.7',
@@ -342,6 +423,10 @@ export const getStaticProps = async () => {
       downloadLink: '',
     },
   ];
+
+  releases = releases.sort(
+    (release1, release2) => Date.parse(release2.published_at) - Date.parse(release1.published_at)
+  );
 
   const dataFilePath = path.join(process.cwd(), 'public/resources', 'countries.json');
   const fileContents = fs.readFileSync(dataFilePath, 'utf8');

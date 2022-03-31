@@ -1,17 +1,25 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import DownloadFormInterface from '../../../interfaces/DownloadFormInterface';
-import Country from '../../../interfaces/Country';
-import styles from './download-form.module.scss';
-import { Modal } from '../../modal/modal';
+import React, { useCallback } from 'react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useForm } from 'react-hook-form';
+import Country from '../../../interfaces/Country';
+import DownloadFormInterface from '../../../interfaces/DownloadFormInterface';
+import Release from '../../../interfaces/GithubRelease';
+import FormInput from '../input/FormInput';
+import styles from './download-form.module.scss';
 
 interface Props {
   countries: Country[];
+  release: Release;
+  onSubmit: (data: DownloadFormInterface, release: Release, recaptchaToken: string | undefined) => void;
 }
 
-const DownloadForm = ({ countries }: Props) => {
-  const [showModal, setShowModal] = useState(false);
+const DownloadForm = ({ countries, release, onSubmit }: Props) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<DownloadFormInterface>();
+
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleReCaptchaVerify = useCallback(async () => {
@@ -24,88 +32,37 @@ const DownloadForm = ({ countries }: Props) => {
     return token;
   }, [executeRecaptcha]);
 
-  // useEffect(() => {
-  //   handleReCaptchaVerify();
-  // }, [handleReCaptchaVerify]);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<DownloadFormInterface>();
-
   const onFormSubmit = (data: DownloadFormInterface) => {
     handleReCaptchaVerify().then((token) => {
-      console.log(token);
-      console.log(errors);
-      console.log(data);
+      onSubmit(data, release, token);
     });
   };
 
   return (
     <>
-      {showModal && <Modal handleCloseClick={() => setShowModal(false)}>Ola</Modal>}
-
       <form className='contact-form' onSubmit={handleSubmit(onFormSubmit)}>
         <div className='flex flex-col gap-y-3'>
-          <div>
-            <label htmlFor='name' className='text-sm font-medium'>
-              Name
-            </label>
-            <input
-              placeholder='Name*'
-              {...register('name', { required: true })}
-              className={`form__field  ${errors?.name ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
-            />
-            {errors?.name?.type === 'required' && <p className='text-red-600 text-sm font-medium'>Name is required.</p>}
-          </div>
+          <FormInput label='Name' register={register('name', { required: true })} error={errors?.name} />
 
-          <div>
-            <label htmlFor='email' className='text-sm font-medium'>
-              Email
-            </label>
-            <input
-              placeholder='Email*'
-              {...register('email', {
-                required: true,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'invalid email address',
-                },
-              })}
-              className={`form__field  ${errors?.email ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
-            />
-            {errors?.email?.type === 'required' && (
-              <p className='text-red-600 text-sm font-medium'>Email is required.</p>
-            )}
-            {errors?.email?.type === 'pattern' && (
-              <p className='text-red-600 text-sm font-medium'>Field must be an email.</p>
-            )}
-          </div>
+          <FormInput
+            label='Email'
+            register={register('email', {
+              required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address',
+              },
+            })}
+            error={errors?.email}
+          />
 
-          <div>
-            <label htmlFor='company' className='text-sm font-medium'>
-              Company
-            </label>
-            <input
-              placeholder='Company*'
-              {...register('company', {
-                required: true,
-              })}
-              className={`form__field  ${
-                errors?.company ? ' outline outline-2 outline-red-600' : 'focus:outline-none'
-              }`}
-            />
-            {errors?.company?.type === 'required' && (
-              <p className='text-red-600 text-sm font-medium'>Company is required.</p>
-            )}
-          </div>
+          <FormInput label='Company' register={register('company')} error={errors?.company} />
 
           <div className='flex flex-col'>
             <label htmlFor='country' className='text-sm font-medium'>
               Country
             </label>
-            <select {...register('country', { required: true })} defaultValue='' className='form__field'>
+            <select {...register('country', { required: true })} defaultValue='' className='form__field max-w-xs'>
               <option value='' disabled hidden>
                 Country*
               </option>
@@ -142,39 +99,28 @@ const DownloadForm = ({ countries }: Props) => {
             )}
           </div>
 
-          <div className='w-full text-sm'>
-            <div className='flex items-center gap-4'>
-              <input type='checkbox' className='w-fit' {...register('pluginsSourceCode')} />
-              <label htmlFor='pluginsSourceCode'>
-                I want to request the source code for the Dicoogle v3.x.x storage and query/index plugins.
-              </label>
-            </div>
-          </div>
+          <FormInput
+            label='I want to request the source code of the Dicoogle v3.x.x storage and query/index plugins.'
+            type='checkbox'
+            register={register('pluginsSourceCode')}
+            error={errors?.pluginsSourceCode}
+          />
 
-          <div className='w-full text-sm'>
-            <div className='flex items-center gap-4'>
-              <input type='checkbox' className='w-fit' {...register('newsletter')} />
-              <label htmlFor='newsletter'>I want to receive major updates and news about Dicoogle.</label>
-            </div>
-          </div>
+          <FormInput
+            label='I want to receive major updates and news about Dicoogle.'
+            type='checkbox'
+            register={register('newsletter')}
+            error={errors?.newsletter}
+          />
 
-          <div className='w-full text-sm'>
-            <div className='flex items-center gap-4'>
-              <input
-                type='checkbox'
-                className={`${errors?.gdprAgreed ? 'outline outline-2 outline-red-600' : 'focus:outline-none'} w-fit`}
-                {...register('gdprAgreed', { required: true })}
-              />
-              <label htmlFor='gdprAgreed' className='font-medium'>
-                I consent to having this website store my submitted information so they can respond to my download
-                request.*
-              </label>
-            </div>
-
-            {errors?.gdprAgreed?.type === 'required' && (
-              <p className='text-red-600 text-sm font-medium'>Agree is required.</p>
-            )}
-          </div>
+          <FormInput
+            label='I consent to having this website store my submitted information so they can respond to my download
+            request.*'
+            name='Agreement'
+            type='checkbox'
+            register={register('gdprAgreed')}
+            error={errors?.gdprAgreed}
+          />
 
           <button type='submit' className={styles['submit-button']}>
             Request Download

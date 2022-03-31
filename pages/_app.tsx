@@ -1,9 +1,10 @@
-import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
+import { Modal } from '../components/modal';
+import Navbar from '../components/navbar/Navbar';
 import ScrollToTheTop from '../components/scroll-top/ScrollToTheTop';
+import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -20,6 +21,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Footer />
 
       <ScrollToTheTop />
+
+      <Modal />
     </>
   );
 }

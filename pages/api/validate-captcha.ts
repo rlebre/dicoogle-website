@@ -15,7 +15,7 @@ const validateCaptcha = (response_key: string): Promise<boolean> => {
     })
       .then((response) => response.json())
       .then((google_response) => {
-        if (google_response.success == true) {
+        if (google_response.success) {
           resolve(true);
         } else {
           resolve(false);

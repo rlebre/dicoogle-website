@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import styles from './flat-section.module.scss';
 
 interface Props {

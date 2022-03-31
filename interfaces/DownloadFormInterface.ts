@@ -1,6 +1,6 @@
 import Country from './Country';
 
-export default interface ContactFormInterface {
+export default interface DownloadFormInterface {
   name: string;
   email: string;
   company: string;

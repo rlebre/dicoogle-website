@@ -1,6 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
-import styles from './grid-section.module.scss';
 
 interface Props {
   title?: string;

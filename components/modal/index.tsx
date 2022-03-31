@@ -61,23 +61,23 @@ export const Modal = () => {
       onKeyDown={(e) => e.key === 'Escape' && setVisibility(false)}
       className={`${styles.modal} ${visible ? styles.modal__show : ''}`}
     >
-      <div ref={menuRef} className={styles.modal__content}>
+      <div ref={menuRef} className={styles.modal__container}>
+        <div className={styles.modal__icon}>{type.current && <TypeRenderer type={type.current} />}</div>
+
+        <div className={styles.modal__content}>
+          {title.current && <span className={styles.modal__title}>{title.current}</span>}
+          {description.current && <span className={styles.modal__description}>{description.current}</span>}
+        </div>
+
         <span
           role='button'
           tabIndex={0}
-          className={styles.close}
+          className={styles.button}
           onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => e.key === 'Enter' && setVisibility(false)}
           onClick={hide}
         >
-          &times;
+          OK
         </span>
-
-        {title.current && <span className={styles.modal__title}>{title.current}</span>}
-
-        <div className={styles.modal__description}>
-          {type.current && <TypeRenderer type={type.current} />}
-          {description.current}
-        </div>
       </div>
     </div>
   );

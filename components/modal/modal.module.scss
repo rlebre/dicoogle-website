@@ -1,3 +1,5 @@
+@use '../../styles/mixins.scss' as mixins;
+
 .modal {
   @apply fixed left-0 -top-full z-50 h-full w-full overflow-auto bg-black bg-opacity-40 pt-40;
 
@@ -5,22 +7,26 @@
     @apply top-0;
   }
 
-  &__title {
-    @apply pb-5 font-medium text-lg;
-  }
-
-  &__content {
-    @apply relative m-auto w-4/5 max-w-xl bg-white p-10 flex flex-col;
+  &__container {
+    @apply relative m-auto w-4/5 max-w-xl bg-white p-10 flex;
     @apply rounded shadow-lg;
     @apply transition-all duration-300;
   }
 
-  &__description {
-    @apply flex items-center gap-2;
+  &__content {
+    @apply flex gap-2 flex-col px-5;
+  }
 
-    &__icon {
-      font-size: 30px;
-    }
+  &__title {
+    @apply pb-5 font-medium text-lg;
+  }
+
+  &__description {
+    @apply text-lg;
+  }
+
+  &__icon {
+    @apply flex items-center;
   }
 }
 
@@ -33,5 +39,13 @@
   margin-top: 5px;
   position: absolute;
   top: 10px;
+  right: 20px;
+}
+
+.button {
+  @include mixins.button1;
+  float: right;
+  position: absolute;
+  bottom: 10px;
   right: 20px;
 }

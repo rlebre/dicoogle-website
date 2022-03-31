@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from '../components/button/Button';
-import FlatSection from '../components/flat-section/FlatSection';
-import ContactSection from '../components/contact-section/ContactSection';
-import LocationSection from '../components/location-section/LocationSection';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import Button from '../components/button/Button';
+import ContactSection from '../components/contact-section/ContactSection';
+import FlatSection from '../components/flat-section/FlatSection';
+import LocationSection from '../components/location-section/LocationSection';
 
 const About = () => {
   return (

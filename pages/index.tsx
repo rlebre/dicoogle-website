@@ -1,16 +1,11 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Footer from '../components/footer/Footer';
-import HomeCard from '../components/home-card/HomeCard';
-
-import Navbar from '../components/navbar/Navbar';
-import GridSection from '../components/grid-section/GridSection';
-import styles from '../styles/Home.module.scss';
-import FlatSection from '../components/flat-section/FlatSection';
-import Carousel, { CarouselItem } from '../components/carousel/Carousel';
-import ScrollToTheTop from '../components/scroll-top/ScrollToTheTop';
 import Link from 'next/link';
 import Button from '../components/button/Button';
+import Carousel, { CarouselItem } from '../components/carousel/Carousel';
+import FlatSection from '../components/flat-section/FlatSection';
+import GridSection from '../components/grid-section/GridSection';
+import HomeCard from '../components/home-card/HomeCard';
+import styles from '../styles/Home.module.scss';
 
 const applications = [
   {
