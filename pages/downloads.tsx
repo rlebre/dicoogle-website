@@ -18,15 +18,19 @@ const Downloads = ({ releases, countries }: Props) => {
   const latestRelease = releases[0];
   const [selectedRelease, setSelectedRelease] = useState(latestRelease);
 
-  const publishedDate = new Date(latestRelease.published_at).toLocaleDateString('en-EN', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-  });
+  const formatDate = (published_at: string) =>
+    new Date(published_at).toLocaleDateString('en-EN', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
 
   const onFormSubmit = useCallback(
     (data: DownloadFormInterface, release: Release, recaptchaToken: string | undefined) => {
-      ModalService.success({ title: 'ola', description: 'descriçao' });
+      ModalService.success({
+        title: 'Download link sent',
+        description: 'Your request has been sent. You will receive the download link in your email shortly.',
+      });
       console.log(data, release, recaptchaToken);
     },
     []
@@ -50,7 +54,7 @@ const Downloads = ({ releases, countries }: Props) => {
               </div>
               <div className='p-4 flex flex-col md:flex-row'>
                 <div className='md:w-2/5 md:pr-4 text-sm'>
-                  <p>Release date: {publishedDate}</p>
+                  <p>Release date: {formatDate(latestRelease.published_at)}</p>
                   <p>To download Dicoogle binaries, please fill in the form.</p>
                   <p>Recomended requirements:</p>
                   <ul className='list-disc list-inside mx-4 mb-4'>
@@ -91,7 +95,7 @@ const Downloads = ({ releases, countries }: Props) => {
               <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
                 Select Dicoogle version:
                 <select
-                  className='bg-gray-500 text-white font-medium border border-gray-300 border-1 rounded-md px-4 py-2'
+                  className='bg-gray-500 text-white  border border-gray-300 border-1 rounded-md px-4 py-2'
                   onChange={onSelectedVersionChanged}
                 >
                   {releases.map((release) => (
@@ -104,7 +108,7 @@ const Downloads = ({ releases, countries }: Props) => {
 
               <div className='p-4 flex flex-col md:flex-row'>
                 <div className='md:w-2/5 md:pr-4 text-sm'>
-                  <p>Release date: {publishedDate}</p>
+                  <p>Release date: {formatDate(selectedRelease.published_at)}</p>
                   <p>To download Dicoogle binaries, please fill in the form.</p>
                   <p>Recomended requirements:</p>
                   <ul className='list-disc list-inside mx-4 mb-4'>
@@ -126,8 +130,8 @@ const Downloads = ({ releases, countries }: Props) => {
                     please check your Spam inbox.
                   </p>
                   <div className='whitespace-pre-wrap'>
-                    <p> Dicoogle v{latestRelease.tag_name} release notes:</p>
-                    <p>{latestRelease.body}</p>
+                    <p> Dicoogle v{selectedRelease.tag_name} release notes:</p>
+                    <p>{selectedRelease.body}</p>
                   </div>
                 </div>
 

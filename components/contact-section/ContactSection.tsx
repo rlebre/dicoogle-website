@@ -1,8 +1,18 @@
-import React from 'react';
 import Image from 'next/image';
+import React, { useCallback } from 'react';
+import ContactFormInterface from '../../interfaces/ContactFormInterface';
 import Contact from '../forms/contact/ContactForm';
+import { ModalService } from '../modal/service';
 
 const ContactSection = () => {
+  const onFormSubmit = useCallback((data: ContactFormInterface, recaptchaToken: string | undefined) => {
+    ModalService.success({
+      title: 'Message sent',
+      description: 'Your message has been sent. You will receive the reply in your email shortly.',
+    });
+    console.log(data, recaptchaToken);
+  }, []);
+
   return (
     <section className='section'>
       <h1>
@@ -30,7 +40,7 @@ const ContactSection = () => {
         </div>
 
         <div className='w-full md:w-2/3 flex flex-col gap-y-2'>
-          <Contact />
+          <Contact onSubmit={onFormSubmit} />
         </div>
       </div>
     </section>

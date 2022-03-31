@@ -25,7 +25,7 @@ const FlatSection = ({ title, subtitle1, subtitle2, children }: Props) => {
           </div>
         )}
 
-        {children && <div className='flex flex-col md:columns-3 space-y-4'>{children}</div>}
+        {children && <div className='flex flex-col md:columns-3 space-y-4 w-full'>{children}</div>}
       </div>
     </section>
   );

@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useForm } from 'react-hook-form';
 import ContactFormInterface from '../../../interfaces/ContactFormInterface';
+import FormInput from '../input/FormInput';
 import styles from './contact-form.module.scss';
 
-const ContactForm = () => {
+interface Props {
+  onSubmit: (data: ContactFormInterface, recaptchaToken: string | undefined) => void;
+}
+
+const ContactForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ContactFormInterface>();
 
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const handleReCaptchaVerify = useCallback(async () => {
+    if (!executeRecaptcha) {
+      console.log('Execute recaptcha not yet available');
+      return;
+    }
+
+    const token = await executeRecaptcha('contact');
+    return token;
+  }, [executeRecaptcha]);
+
   const onFormSubmit = (data: ContactFormInterface) => {
+    handleReCaptchaVerify().then((token) => {
+      onSubmit(data, token);
+    });
     console.log(errors);
     console.log(data);
   };
@@ -18,45 +39,21 @@ const ContactForm = () => {
   return (
     <form className='form' onSubmit={handleSubmit(onFormSubmit)}>
       <div className='flex flex-col gap-y-3'>
-        <div>
-          <label htmlFor='name' className='text-sm font-medium'>
-            Name
-          </label>
-          <input
-            placeholder='Name*'
-            {...register('name', { required: true })}
-            className={`form__field  ${errors?.name ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
-          />
-          {errors?.name?.type === 'required' && <p className='text-red-600 text-sm font-medium'>Name is required.</p>}
-        </div>
+        <FormInput label='Name' register={register('name', { required: true })} error={errors?.name} />
 
-        <div>
-          <label htmlFor='email' className='text-sm font-medium'>
-            Email
-          </label>
-          <input
-            placeholder='Email*'
-            {...register('email', {
-              required: true,
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'invalid email address',
-              },
-            })}
-            className={`form__field  ${errors?.email ? ' outline outline-2 outline-red-600' : 'focus:outline-none'}`}
-          />
-          {errors?.email?.type === 'required' && <p className='text-red-600 text-sm font-medium'>Email is required.</p>}
-          {errors?.email?.type === 'pattern' && (
-            <p className='text-red-600 text-sm font-medium'>Field must be an email.</p>
-          )}
-        </div>
+        <FormInput
+          label='Email'
+          register={register('email', {
+            required: true,
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Invalid email address',
+            },
+          })}
+          error={errors?.email}
+        />
 
-        <div>
-          <label htmlFor='subject' className='text-sm font-medium'>
-            Subject
-          </label>
-          <input placeholder='Subject' {...register('subject')} className='form__field' />
-        </div>
+        <FormInput label='Subject' register={register('subject', { required: true })} error={errors?.subject} />
 
         <div>
           <label htmlFor='message' className='text-sm font-medium'>
@@ -75,25 +72,14 @@ const ContactForm = () => {
           )}
         </div>
 
-        <div className='w-full  text-sm'>
-          <div className='flex items-center gap-4'>
-            <input
-              type='checkbox'
-              className={`${errors?.gdprAgreed ? 'outline outline-2 outline-red-600' : 'focus:outline-none'} w-fit`}
-              {...register('gdprAgreed', { required: true })}
-            />
-            <label htmlFor='gdprAgreed'>
-              I consent to having this website store my submitted information so they can respond to my contact
-              message.*
-            </label>
-          </div>
-
-          {errors?.gdprAgreed?.type === 'required' && (
-            <p className='text-red-600 text-sm font-medium'>Agree is required.</p>
-          )}
-        </div>
-
-        <div className='col-sm-12 g-recaptcha' data-sitekey='6Lf1ej4UAAAAAIvVJ6Nf0SGIb2dBGPcjUPq-L0sd'></div>
+        <FormInput
+          label='I consent to having this website store my submitted information so they can respond to my contact
+            message.*'
+          name='Agreement'
+          type='checkbox'
+          register={register('gdprAgreed')}
+          error={errors?.gdprAgreed}
+        />
 
         <button type='submit' className={styles['submit-button']}>
           Send Message

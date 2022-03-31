@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import React, { MutableRefObject, useEffect, useRef } from 'react';
-import { useState } from 'react';
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useOutsideClick } from '../click-outside/useClickOutside';
 import Hamburger from '../icons/Hamburger';
 import Logo from '../icons/Logo';
@@ -42,7 +41,7 @@ export const Navbar = () => {
             <Hamburger />
           </button>
 
-          <div className={`${active ? 'translate-x-0' : 'translate-x-full'} ${styles.nav__links}`}>
+          <div className={`${active ? 'translate-x-0' : 'translate-x-full md:translate-x-0'} ${styles.nav__links}`}>
             <Link href='/'>
               <a className={`${styles.nav__link}`}>Home</a>
             </Link>
