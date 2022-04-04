@@ -1,18 +1,30 @@
 import React from 'react';
 import FlatSection from '../components/flat-section/FlatSection';
-import Exclamation from '../components/icons/Exclamation';
+import ReferenceTabbedView from '../components/tab-view/references';
+import { getReferences } from '../services/references';
 
-const References = () => {
+interface Props {
+  references: any;
+}
+
+const References = ({ references }: Props) => {
   return (
     <div className='container pt-16'>
       <FlatSection title='References'>
-        <div className='h-80 w-full flex items-center justify-center gap-5'>
-          <Exclamation className='w-16 h-16 fill-orange-400' />
-          <span className='text-xl'>Work in progress</span>
-        </div>
+        <ReferenceTabbedView references={references} />
       </FlatSection>
     </div>
   );
+};
+
+export const getStaticProps = async () => {
+  const references = await getReferences();
+
+  return {
+    props: {
+      references,
+    },
+  };
 };
 
 export default References;
