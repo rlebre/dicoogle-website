@@ -9,5 +9,5 @@ export default interface DownloadFormInterface {
   pluginsSourceCode: boolean;
   newsletter: boolean;
   gdprAgreed: boolean;
-  recaptchaToken?: string;
+  token?: string;
 }

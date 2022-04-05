@@ -4,4 +4,5 @@ export default interface ContactFormInterface {
   subject?: string;
   message: string;
   gdprAgreed: boolean;
+  token?: string;
 }

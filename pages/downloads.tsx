@@ -8,6 +8,7 @@ import { ModalService } from '../components/modal/service';
 import Country from '../interfaces/Country';
 import DownloadFormInterface from '../interfaces/DownloadFormInterface';
 import Release from '../interfaces/GithubRelease';
+import { requestDownload } from '../services/download';
 
 interface Props {
   countries: Country[];
@@ -27,11 +28,19 @@ const Downloads = ({ releases, countries }: Props) => {
 
   const onFormSubmit = useCallback(
     (data: DownloadFormInterface, release: Release, recaptchaToken: string | undefined) => {
-      ModalService.success({
-        title: 'Download link sent',
-        description: 'Your request has been sent. You will receive the download link in your email shortly.',
-      });
-      console.log(data, release, recaptchaToken);
+      requestDownload({ ...data, token: recaptchaToken }, release)
+        .then(() =>
+          ModalService.success({
+            title: 'Download link sent',
+            description: 'Your request has been sent. You will receive the download link in your email shortly.',
+          })
+        )
+        .catch((error) => {
+          ModalService.error({
+            title: 'Error',
+            description: error.response.data.message,
+          });
+        });
     },
     []
   );

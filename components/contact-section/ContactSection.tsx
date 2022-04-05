@@ -1,16 +1,25 @@
 import Image from 'next/image';
 import React, { useCallback } from 'react';
 import ContactFormInterface from '../../interfaces/ContactFormInterface';
+import { sendMessage } from '../../services/contact';
 import Contact from '../forms/contact/ContactForm';
 import { ModalService } from '../modal/service';
 
 const ContactSection = () => {
   const onFormSubmit = useCallback((data: ContactFormInterface, recaptchaToken: string | undefined) => {
-    ModalService.success({
-      title: 'Message sent',
-      description: 'Your message has been sent. You will receive the reply in your email shortly.',
-    });
-    console.log(data, recaptchaToken);
+    sendMessage({ ...data, token: recaptchaToken })
+      .then(() => {
+        ModalService.success({
+          title: 'Message sent',
+          description: 'Your message has been sent. You will receive the reply in your email shortly.',
+        });
+      })
+      .catch((error) => {
+        ModalService.error({
+          title: 'Error',
+          description: error.response.data.message,
+        });
+      });
   }, []);
 
   return (
