@@ -7,8 +7,6 @@ interface Props {
 }
 
 const ReferenceTabbedView = ({ references }: Props) => {
-  useEffect(() => console.log(references), [references]);
-
   const journals = useRef([]);
   const conferences = useRef([]);
   const magazines = useRef([]);

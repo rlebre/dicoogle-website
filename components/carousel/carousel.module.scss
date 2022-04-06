@@ -35,7 +35,7 @@
   }
 
   &__button {
-    @apply bg-white h-1 w-4 md:w-8;
+    @apply bg-white h-1 w-4 md:w-8 rounded;
 
     &__active {
       background: #356287;

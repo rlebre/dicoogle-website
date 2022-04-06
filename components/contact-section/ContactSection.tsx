@@ -1,29 +1,41 @@
 import Image from 'next/image';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import ContactFormInterface from '../../interfaces/ContactFormInterface';
 import { sendMessage } from '../../services/contact';
 import Contact from '../forms/contact/ContactForm';
+import LoadingScreen from '../loading-screen';
+import LoadingSpinner from '../loading-spinner';
 import { ModalService } from '../modal/service';
 
 const ContactSection = () => {
+  const [submitting, setSubmitting] = useState(false);
   const onFormSubmit = useCallback((data: ContactFormInterface, recaptchaToken: string | undefined) => {
+    setSubmitting(true);
     sendMessage({ ...data, token: recaptchaToken })
       .then(() => {
         ModalService.success({
           title: 'Message sent',
-          description: 'Your message has been sent. You will receive the reply in your email shortly.',
+          description: 'Your message has been sent. You will receive the reply in your email shortly.'
         });
       })
       .catch((error) => {
         ModalService.error({
           title: 'Error',
-          description: error.response.data.message,
+          description:
+            error.response?.data?.message || 'Connection error. Please try again later or email us at ruilebre@ua.pt'
         });
-      });
+      })
+      .finally(() => setSubmitting(false));
   }, []);
 
   return (
     <section className='section'>
+      {submitting && (
+        <LoadingScreen>
+          <LoadingSpinner />
+        </LoadingScreen>
+      )}
+
       <h1>
         <span>Contact us</span>
       </h1>

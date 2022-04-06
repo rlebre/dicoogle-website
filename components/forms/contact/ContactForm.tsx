@@ -13,7 +13,7 @@ const ContactForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ContactFormInterface>();
 
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -32,8 +32,6 @@ const ContactForm = ({ onSubmit }: Props) => {
     handleReCaptchaVerify().then((token) => {
       onSubmit(data, token);
     });
-    console.log(errors);
-    console.log(data);
   };
 
   return (
@@ -47,8 +45,8 @@ const ContactForm = ({ onSubmit }: Props) => {
             required: true,
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Invalid email address',
-            },
+              message: 'Invalid email address'
+            }
           })}
           error={errors?.email}
         />
@@ -77,7 +75,7 @@ const ContactForm = ({ onSubmit }: Props) => {
             message.*'
           name='Agreement'
           type='checkbox'
-          register={register('gdprAgreed')}
+          register={register('gdprAgreed', { required: true })}
           error={errors?.gdprAgreed}
         />
 

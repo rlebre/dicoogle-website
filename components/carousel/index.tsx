@@ -44,7 +44,7 @@ const Carousel = ({ children, timeout }: Props) => {
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => updateSlide(slide + 1),
-    onSwipedRight: () => updateSlide(slide - 1),
+    onSwipedRight: () => updateSlide(slide - 1)
   });
 
   return (

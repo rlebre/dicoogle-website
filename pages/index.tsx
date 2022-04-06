@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import Button from '../components/button/Button';
-import Carousel, { CarouselItem } from '../components/carousel/Carousel';
+import Carousel, { CarouselItem } from '../components/carousel';
 import FlatSection from '../components/flat-section/FlatSection';
 import GridSection from '../components/grid-section/GridSection';
 import HomeCard from '../components/home-card/HomeCard';
@@ -14,8 +14,8 @@ const applications = [
     imageWidth: '100',
     title: 'Research',
     description: [
-      "With a big list of scientific articles published related to it, Dicoogle's place as a research aid tool is well-established. After the development of Dicoogle by UA.PT Bioinformatics research group, this resource was successfully used as the basis for several other research projects.",
-    ],
+      "With a big list of scientific articles published related to it, Dicoogle's place as a research aid tool is well-established. After the development of Dicoogle by UA.PT Bioinformatics research group, this resource was successfully used as the basis for several other research projects."
+    ]
   },
   {
     imageUrl: '/images/applications/teaching_icon.png',
@@ -23,8 +23,8 @@ const applications = [
     imageWidth: '100',
     title: 'Teaching',
     description: [
-      'Dicoogle is the PACS platform of choice to teach Medical Imaging and Computer Science students in University of Aveiro. These MSc students are encouraged to develop small projects that are based on this PACS archive, providing knowledge to community and improvements to Dicoogle.',
-    ],
+      'Dicoogle is the PACS platform of choice to teach Medical Imaging and Computer Science students in University of Aveiro. These MSc students are encouraged to develop small projects that are based on this PACS archive, providing knowledge to community and improvements to Dicoogle.'
+    ]
   },
   {
     imageUrl: '/images/applications/professional_icon.png',
@@ -32,9 +32,9 @@ const applications = [
     imageWidth: '100',
     title: 'Professional',
     description: [
-      'Dicoogle is used as the core framework in some commercially available platforms in medical imaging. A good example of such use is BMD Software.',
-    ],
-  },
+      'Dicoogle is used as the core framework in some commercially available platforms in medical imaging. A good example of such use is BMD Software.'
+    ]
+  }
 ];
 
 const features = [
@@ -43,7 +43,7 @@ const features = [
     imageHeight: '20',
     imageWidth: '20',
     title: 'Expandable',
-    description: ['Plugin based architecture', 'SDK ready to boost new features development'],
+    description: ['Plugin based architecture', 'SDK ready to boost new features development']
   },
   {
     imageUrl: '/images/features/scale.svg',
@@ -53,15 +53,15 @@ const features = [
     description: [
       'Tested with over 25 millions of indexed DICOM objects',
       'Simple installation and deployment',
-      'Optimized for big data paradigms',
-    ],
+      'Optimized for big data paradigms'
+    ]
   },
   {
     imageUrl: '/images/features/service-api.svg',
     imageHeight: '20',
     imageWidth: '20',
     title: 'DICOM Services',
-    description: ['Storage', 'Query/Retrieve', 'DICOMWeb', 'Extensible with additional plugins and modules'],
+    description: ['Storage', 'Query/Retrieve', 'DICOMWeb', 'Extensible with additional plugins and modules']
   },
   {
     imageUrl: '/images/features/indexing.svg',
@@ -70,8 +70,8 @@ const features = [
     title: 'Indexing/Query Engine',
     description: [
       'Enable DICOM study retrieval and knowledge extraction with pluggable query providers',
-      'Support for complex query/retrieval solutions, such as free text, range based queries over meta-data, and query-by-example.',
-    ],
+      'Support for complex query/retrieval solutions, such as free text, range based queries over meta-data, and query-by-example.'
+    ]
   },
   {
     imageUrl: '/images/features/user-interface.svg',
@@ -80,8 +80,8 @@ const features = [
     title: 'Web User Interface',
     description: [
       'Web Application compatible with modern browsers',
-      'Web Services with an open API for programmatic control',
-    ],
+      'Web Services with an open API for programmatic control'
+    ]
   },
   {
     imageUrl: '/images/features/opensource.svg',
@@ -91,28 +91,28 @@ const features = [
     description: [
       'Platform Independent (Windows, Linux, Mac)',
       'Free and proprietary plugins are available',
-      'Licence: GPL v3',
-    ],
-  },
+      'Licence: GPL v3'
+    ]
+  }
 ];
 
 const resources = [
   {
     title: 'Download',
-    link: '/downloads',
+    link: '/downloads'
   },
   {
     title: 'Documentation',
-    link: 'https://bioinformatics-ua.github.io/dicoogle-api/',
+    link: 'https://bioinformatics-ua.github.io/dicoogle-api/'
   },
   {
     title: 'View on Github',
-    link: 'https://github.com/bioinformatics-ua/dicoogle',
+    link: 'https://github.com/bioinformatics-ua/dicoogle'
   },
   {
     title: 'References',
-    link: '/references',
-  },
+    link: '/references'
+  }
 ];
 
 const Home: NextPage = () => {

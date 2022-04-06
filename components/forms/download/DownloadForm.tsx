@@ -17,7 +17,7 @@ const DownloadForm = ({ countries, release, onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<DownloadFormInterface>();
 
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -50,8 +50,8 @@ const DownloadForm = ({ countries, release, onSubmit }: Props) => {
               required: true,
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address',
-              },
+                message: 'Invalid email address'
+              }
             })}
             error={errors?.email}
           />
@@ -118,7 +118,7 @@ const DownloadForm = ({ countries, release, onSubmit }: Props) => {
             request.*'
             name='Agreement'
             type='checkbox'
-            register={register('gdprAgreed')}
+            register={register('gdprAgreed', { required: true })}
             error={errors?.gdprAgreed}
           />
 
