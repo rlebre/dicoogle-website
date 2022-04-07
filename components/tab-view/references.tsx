@@ -21,7 +21,7 @@ const ReferenceTabbedView = ({ references }: Props) => {
     magazines.current = references.filter(
       (reference) => reference.attributes.Category.data.attributes.Name === 'magazine'
     );
-  }, []);
+  }, [references]);
 
   const [selectedTab, setSelectedTab] = useState(0);
 

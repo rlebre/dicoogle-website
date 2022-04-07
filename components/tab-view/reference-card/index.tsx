@@ -39,9 +39,13 @@ const ReferenceCard = ({ reference }: Props) => {
     [reference]
   );
 
+  const onCardClick = useCallback(() => {
+    window.open(reference.attributes.Link, '_blank');
+  }, [reference]);
+
   return (
     <div className='p-8 mt-8 transition-all ease-in-out duration-200 w-full hover:shadow-lg md:border-none border rounded border-gray-300'>
-      <div className='flex justify-between flex-wrap '>
+      <div className='flex justify-between flex-wrap' onClick={onCardClick}>
         <div className='w-full md:w-4/5 flex flex-col gap-3 cursor-pointer'>
           <div className='font-medium uppercase flex items-center gap-2'>
             <span className={`${styles.indicator} 'px-3 flex md:px-4 rounded-full text-sm text-white'`}>
