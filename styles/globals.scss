@@ -1,5 +1,3 @@
-@import './colors.scss';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +8,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
     Helvetica Neue, sans-serif;
-  color: $gray-2;
+  @apply text-dicoogle-gray-200;
   font-size: 14px;
   font-weight: 300;
   letter-spacing: 0.075em;
@@ -49,7 +47,7 @@ h1 {
     width: 3rem;
     height: 1px;
     display: block;
-    background-color: $gray-2;
+    @apply bg-dicoogle-gray-200;
   }
 }
 
@@ -59,8 +57,7 @@ p {
 }
 
 .circletag {
-  background: $blue-2;
-  @apply flex items-center justify-center rounded-full;
+  @apply flex items-center justify-center rounded-full bg-dicoogle-300;
 }
 
 .image-center {

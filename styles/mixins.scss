@@ -1,5 +1,3 @@
-@use './colors.scss' as colors;
-
 @mixin btn {
   display: inline-block;
   padding: 6px 12px;
@@ -23,17 +21,11 @@
 
 @mixin button1 {
   @include btn;
-  @apply md:w-fit;
-
-  color: colors.$white;
-  background-color: colors.$blue-2;
-  border-color: colors.$blue-3;
+  @apply md:w-fit bg-dicoogle-300 border-dicoogle-400 text-white;
 
   &:focus,
   &:hover {
-    color: colors.$white;
-    background-color: colors.$blue-4;
-    border-color: colors.$blue-5;
+    @apply text-white bg-dicoogle-400 border-dicoogle-500;
   }
 }
 
@@ -42,9 +34,7 @@
 
   @apply my-2 py-3 px-10 border-0 rounded uppercase font-medium w-full  mx-10 md:mx-0 md:w-fit;
   @apply hover:drop-shadow-xl transition-all duration-300;
-
-  background: colors.$gray-2;
-  color: colors.$white;
+  @apply text-white bg-dicoogle-gray-200;
 
   &:hover {
     background: black;

@@ -1,9 +1,7 @@
 @use '../../styles/mixins.scss' as mixins;
-@import '../../styles/colors.scss';
 
 .header {
-  @apply sticky top-0 w-full flex justify-between items-center z-50 transition-all duration-300;
-  background: $blue-0;
+  @apply sticky top-0 w-full flex justify-between items-center z-50 transition-all duration-300 bg-dicoogle-600;
 
   &__container {
     @apply w-full flex justify-between items-center;
@@ -18,34 +16,27 @@
 .nav {
   &__hamburger {
     @apply inline-flex p-3 md:hidden outline-none rounded-lg;
-    @apply transition duration-300;
-
-    color: $gray-2;
+    @apply transition duration-300 text-dicoogle-gray-200;
 
     &:hover {
-      color: $blue-3;
+      @apply text-dicoogle-400;
     }
   }
 
   &__links {
-    @apply fixed md:relative md:flex md:space-y-0 md:space-x-6 md:p-0 left-0 right-0 md:translate-x-0 space-y-4 p-4 transform duration-500 items-center;
-    background: $blue-0;
+    @apply fixed md:relative md:flex md:space-y-0 md:space-x-6 md:p-0 left-0 right-0 md:translate-x-0 space-y-4 p-4 transform duration-500 items-center bg-dicoogle-600;
   }
 
   &__link {
-    @apply border-gray-100 active:rounded-lg md:border-0 block font-bold pl-3 pr-4 py-2 md:hover:text-blue-400 md:p-0;
-    @apply transition ease-in-out duration-150 hover:scale-105;
-
-    color: $gray-2;
+    @apply border-gray-100 active:rounded-lg md:border-0 block font-bold pl-3 pr-4 py-2 md:hover:text-dicoogle-300 md:p-0;
+    @apply transition ease-in-out duration-150 hover:scale-105 text-dicoogle-gray-200;
 
     &__download {
       @include mixins.button1;
-      @apply rounded-md text-white p-2 w-fit;
-      background: $blue-2;
+      @apply rounded-md text-white p-2 w-fit bg-dicoogle-300;
 
       &:hover {
-        background: $blue-3;
-        color: $blue-0;
+        @apply bg-dicoogle-400 text-white;
       }
     }
   }
