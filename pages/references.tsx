@@ -23,7 +23,9 @@ export const getStaticProps = async () => {
   return {
     props: {
       references,
-    },
+
+      revalidate: 60 * 60 * 6 // revalidate every 6 hours
+    }
   };
 };
 

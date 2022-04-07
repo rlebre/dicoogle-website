@@ -176,6 +176,7 @@ const Downloads = ({ releases, countries }: Props) => {
 
 export const getStaticProps = async () => {
   const ghData = await getReleases();
+  console.log('revalidate');
 
   const releases = ghData
     .map(
@@ -200,7 +201,9 @@ export const getStaticProps = async () => {
     props: {
       releases: releases.filter((release) => release.downloadLink !== ''),
       countries
-    }
+    },
+
+    revalidate: 60 * 60 * 6 // revalidate every 6 hours
   };
 };
 
