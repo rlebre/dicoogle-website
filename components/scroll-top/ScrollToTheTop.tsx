@@ -16,7 +16,7 @@ export const ScrollToTheTop = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: 'smooth'
     });
   };
 
@@ -29,7 +29,7 @@ export const ScrollToTheTop = () => {
   }, []);
 
   return (
-    <div className='fixed bottom-4 right-4'>
+    <div className='fixed bottom-4 right-4 z-50'>
       <button onClick={scrollToTop} className={`${isVisible ? 'opacity-100' : 'opacity-0'} ${styles.button}`}>
         <Up className='h-6 w-6' aria-hidden='true' />
       </button>

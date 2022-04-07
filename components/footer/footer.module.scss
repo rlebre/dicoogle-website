@@ -1,12 +1,8 @@
-@use '../../styles/colors.scss' as colors;
-
 .footer {
   border-top: 1px solid #eaeaea;
-
-  background: colors.$gray-2;
   min-height: 200px;
 
-  @apply flex flex-col items-center gap-y-4 pt-10;
+  @apply flex flex-col items-center gap-y-4 pt-10 bg-dicoogle-gray-200;
 
   a {
     display: flex;

@@ -1,9 +1,8 @@
 @use '../../styles/mixins.scss' as mixins;
-@import '../../styles/colors.scss';
 
 section {
   .subtitle {
-    color: $blue-2;
+    @apply text-dicoogle-300;
   }
 }
 

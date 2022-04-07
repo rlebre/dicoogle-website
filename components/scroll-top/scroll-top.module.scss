@@ -1,11 +1,7 @@
-@use '../../styles/colors.scss' as colors;
-
 .button {
-  @apply inline-flex items-center p-2 rounded-md shadow-sm text-white;
-  background: colors.$blue-4;
+  @apply inline-flex items-center p-2 rounded-md shadow-sm text-white bg-dicoogle-400;
 
   &:hover {
-    background: colors.$blue-5;
-    @apply drop-shadow-2xl;
+    @apply drop-shadow-2xl bg-dicoogle-500;
   }
 }

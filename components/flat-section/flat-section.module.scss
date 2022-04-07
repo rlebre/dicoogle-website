@@ -1,10 +1,8 @@
 @use '../../styles/mixins.scss' as mixins;
-@import '../../styles/colors.scss';
 
 section {
   .subtitle {
-    color: $blue-2;
-    @apply w-64 hidden md:block;
+    @apply w-64 hidden md:block text-dicoogle-300;
 
     h3,
     h4 {
