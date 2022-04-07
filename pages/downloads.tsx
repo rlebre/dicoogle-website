@@ -1,4 +1,5 @@
 import fs from 'fs';
+import Head from 'next/head';
 import path from 'path';
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
@@ -60,111 +61,116 @@ const Downloads = ({ releases, countries }: Props) => {
   );
 
   return (
-    <div className='container pt-16'>
-      {submitting && (
-        <LoadingScreen>
-          <LoadingSpinner />
-        </LoadingScreen>
-      )}
-      <GoogleReCaptchaProvider reCaptchaKey={`${process.env.NEXT_PUBLIC_RECAPTCHA}`}>
-        <FlatSection title='Latest version'>
-          <div className='w-full'>
-            <div className='border border-gray-300 rounded-md w-full'>
-              <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
-                Dicoogle v{latestRelease.tag_name}
-              </div>
-              <div className='p-4 flex flex-col md:flex-row'>
-                <div className='md:w-2/5 md:pr-4 text-sm'>
-                  <p>Release date: {formatDate(latestRelease.published_at)}</p>
-                  <p>To download Dicoogle binaries, please fill in the form.</p>
-                  <p>Recomended requirements:</p>
-                  <ul className='list-disc list-inside mx-4 mb-4'>
-                    <li>Windows, Linux or Mac OS</li>
-                    <li>
-                      <a
-                        href='https://www.oracle.com/pt/java/technologies/javase/javase8-archive-downloads.html'
-                        target='_blank'
-                        rel='noreferrer'
-                      >
-                        Java 8
-                      </a>
-                    </li>
-                    <li>200 MB System memory</li>
-                    <li>500 MB of free disk space (for DICOM objects)</li>
-                  </ul>
-                  <p>
-                    Note: The download link will be sent to the e-mail address entered. If the e-mail does not arrive,
-                    please check your Spam inbox.
-                  </p>
-                  <div className='whitespace-pre-wrap'>
-                    <p> Dicoogle v{latestRelease.tag_name} release notes:</p>
-                    <p>{latestRelease.body}</p>
-                  </div>
+    <>
+      <Head>
+        <title>Dicoogle - Downloads</title>
+      </Head>
+      <div className='container pt-16'>
+        {submitting && (
+          <LoadingScreen>
+            <LoadingSpinner />
+          </LoadingScreen>
+        )}
+        <GoogleReCaptchaProvider reCaptchaKey={`${process.env.NEXT_PUBLIC_RECAPTCHA}`}>
+          <FlatSection title='Latest version'>
+            <div className='w-full'>
+              <div className='border border-gray-300 rounded-md w-full'>
+                <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
+                  Dicoogle v{latestRelease.tag_name}
                 </div>
+                <div className='p-4 flex flex-col md:flex-row'>
+                  <div className='md:w-2/5 md:pr-4 text-sm'>
+                    <p>Release date: {formatDate(latestRelease.published_at)}</p>
+                    <p>To download Dicoogle binaries, please fill in the form.</p>
+                    <p>Recomended requirements:</p>
+                    <ul className='list-disc list-inside mx-4 mb-4'>
+                      <li>Windows, Linux or Mac OS</li>
+                      <li>
+                        <a
+                          href='https://www.oracle.com/pt/java/technologies/javase/javase8-archive-downloads.html'
+                          target='_blank'
+                          rel='noreferrer'
+                        >
+                          Java 8
+                        </a>
+                      </li>
+                      <li>200 MB System memory</li>
+                      <li>500 MB of free disk space (for DICOM objects)</li>
+                    </ul>
+                    <p>
+                      Note: The download link will be sent to the e-mail address entered. If the e-mail does not arrive,
+                      please check your Spam inbox.
+                    </p>
+                    <div className='whitespace-pre-wrap'>
+                      <p> Dicoogle v{latestRelease.tag_name} release notes:</p>
+                      <p>{latestRelease.body}</p>
+                    </div>
+                  </div>
 
-                <div className='md:w-3/5 md:pl-4'>
-                  <DownloadForm countries={countries} release={latestRelease} onSubmit={onFormSubmit} />
+                  <div className='md:w-3/5 md:pl-4'>
+                    <DownloadForm countries={countries} release={latestRelease} onSubmit={onFormSubmit} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </FlatSection>
+          </FlatSection>
 
-        <FlatSection title='Previous versions'>
-          <div className='w-full'>
-            <div className='border border-gray-300 rounded-md w-full'>
-              <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
-                Select Dicoogle version:
-                <select
-                  className='bg-gray-500 text-white  border border-gray-300 border-1 rounded-md px-4 py-2'
-                  onChange={onSelectedVersionChanged}
-                >
-                  {releases.map((release) => (
-                    <option key={release.id} value={release.id}>
-                      {release.tag_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className='p-4 flex flex-col md:flex-row'>
-                <div className='md:w-2/5 md:pr-4 text-sm'>
-                  <p>Release date: {formatDate(selectedRelease.published_at)}</p>
-                  <p>To download Dicoogle binaries, please fill in the form.</p>
-                  <p>Recomended requirements:</p>
-                  <ul className='list-disc list-inside mx-4 mb-4'>
-                    <li>Windows, Linux or Mac OS</li>
-                    <li>
-                      <a
-                        href='https://www.oracle.com/pt/java/technologies/javase/javase8-archive-downloads.html'
-                        target='_blank'
-                        rel='noreferrer'
-                      >
-                        Java 8
-                      </a>
-                    </li>
-                    <li>200 MB System memory</li>
-                    <li>500 MB of free disk space (for DICOM objects)</li>
-                  </ul>
-                  <p>
-                    Note: The download link will be sent to the e-mail address entered. If the e-mail does not arrive,
-                    please check your Spam inbox.
-                  </p>
-                  <div className='whitespace-pre-wrap'>
-                    <p> Dicoogle v{selectedRelease.tag_name} release notes:</p>
-                    <p>{selectedRelease.body}</p>
-                  </div>
+          <FlatSection title='Previous versions'>
+            <div className='w-full'>
+              <div className='border border-gray-300 rounded-md w-full'>
+                <div className='border-b border-gray-300 p-4 bg-gray-200 flex items-center gap-2 font-medium'>
+                  Select Dicoogle version:
+                  <select
+                    className='bg-gray-500 text-white  border border-gray-300 border-1 rounded-md px-4 py-2'
+                    onChange={onSelectedVersionChanged}
+                  >
+                    {releases.map((release) => (
+                      <option key={release.id} value={release.id}>
+                        {release.tag_name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
-                <div className='md:w-3/5 md:pl-4'>
-                  <DownloadForm countries={countries} release={selectedRelease} onSubmit={onFormSubmit} />
+                <div className='p-4 flex flex-col md:flex-row'>
+                  <div className='md:w-2/5 md:pr-4 text-sm'>
+                    <p>Release date: {formatDate(selectedRelease.published_at)}</p>
+                    <p>To download Dicoogle binaries, please fill in the form.</p>
+                    <p>Recomended requirements:</p>
+                    <ul className='list-disc list-inside mx-4 mb-4'>
+                      <li>Windows, Linux or Mac OS</li>
+                      <li>
+                        <a
+                          href='https://www.oracle.com/pt/java/technologies/javase/javase8-archive-downloads.html'
+                          target='_blank'
+                          rel='noreferrer'
+                        >
+                          Java 8
+                        </a>
+                      </li>
+                      <li>200 MB System memory</li>
+                      <li>500 MB of free disk space (for DICOM objects)</li>
+                    </ul>
+                    <p>
+                      Note: The download link will be sent to the e-mail address entered. If the e-mail does not arrive,
+                      please check your Spam inbox.
+                    </p>
+                    <div className='whitespace-pre-wrap'>
+                      <p> Dicoogle v{selectedRelease.tag_name} release notes:</p>
+                      <p>{selectedRelease.body}</p>
+                    </div>
+                  </div>
+
+                  <div className='md:w-3/5 md:pl-4'>
+                    <DownloadForm countries={countries} release={selectedRelease} onSubmit={onFormSubmit} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </FlatSection>
-      </GoogleReCaptchaProvider>
-    </div>
+          </FlatSection>
+        </GoogleReCaptchaProvider>
+      </div>
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import Button from '../components/button/Button';
@@ -8,6 +9,10 @@ import LocationSection from '../components/location-section/LocationSection';
 const About = () => {
   return (
     <>
+      <Head>
+        <title>Dicoogle - About</title>
+      </Head>
+
       <div className='container pt-16'>
         <FlatSection title='About us' subtitle1='What is' subtitle2='Dicoogle'>
           <p className='text-justify'>

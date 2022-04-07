@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import Button from '../components/button/Button';
 import Carousel, { CarouselItem } from '../components/carousel';
@@ -118,6 +119,10 @@ const resources = [
 const Home: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>Dicoogle - Open-source PACS</title>
+      </Head>
+
       <Carousel>
         <CarouselItem>
           <img src='/images/slider/01.png' alt='Wild Landscape' />
