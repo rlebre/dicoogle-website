@@ -176,7 +176,6 @@ const Downloads = ({ releases, countries }: Props) => {
 
 export const getStaticProps = async () => {
   const ghData = await getReleases();
-  console.log('revalidate');
 
   const releases = ghData
     .map(

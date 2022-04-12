@@ -48,6 +48,9 @@ export const Navbar = () => {
             <Link href='/about'>
               <a className={styles.nav__link}>About</a>
             </Link>
+            <Link href='/documentation'>
+              <a className={styles.nav__link}>Documentation</a>
+            </Link>
             <Link href='/downloads'>
               <a className={`${styles.nav__link} ${styles.nav__link__download}`}>Download</a>
             </Link>
