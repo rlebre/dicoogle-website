@@ -4,5 +4,5 @@ import DownloadFormInterface from '../interfaces/DownloadFormInterface';
 import Release from '../interfaces/GithubRelease';
 
 export function requestDownload(body: DownloadFormInterface, release: Release): Promise<APIStatus> {
-  return axios.post(`${process.env.NEXT_PUBLIC_API}/download`, { ...body, release });
+  return axios.post(`${process.env.NEXT_PUBLIC_API}/download/request`, { ...body, resource: release.tag_name });
 }

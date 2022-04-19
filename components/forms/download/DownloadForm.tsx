@@ -94,7 +94,7 @@ const DownloadForm = ({ countries, release, onSubmit }: Props) => {
               <option value='Development' />
               <option value='Educational' />
             </datalist>
-            {errors?.interest?.type === 'required' && (
+            {errors?.interests?.type === 'required' && (
               <p className='text-red-600 text-sm font-medium'>Interest is required.</p>
             )}
           </div>

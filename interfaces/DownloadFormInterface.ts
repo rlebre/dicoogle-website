@@ -5,7 +5,7 @@ export default interface DownloadFormInterface {
   email: string;
   company: string;
   country: Country;
-  interest: string;
+  interests: string;
   pluginsSourceCode: boolean;
   newsletter: boolean;
   gdprAgreed: boolean;
