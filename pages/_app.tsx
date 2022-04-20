@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           name='description'
           content='Dicoogle is an open source Picture Archiving and Communications System (PACS) archive. Its modular architecture allows the quick development of new functionalities, due the availability of a Software Development Kit (SDK).'
         />
-        <meta name='theme-color' content='#cbe0f2' />
+        <meta name='theme-color' content='#eff6ff' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
