@@ -20,7 +20,7 @@ export const CarouselItem = ({ children }: ItemProps) => {
 
 const Carousel = ({ children, timeout }: Props) => {
   const [slide, setSlide] = useState(0);
-  const [paused, setPaused] = useState(true);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {

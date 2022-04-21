@@ -11,7 +11,9 @@ const ReferenceCard = ({ reference }: Props) => {
   const buttonsRef = useRef<HTMLDivElement>();
 
   const onCopyClick = useCallback(
-    (attribute: 'bibtex' | 'endnote' | 'apa' | 'harvard') => {
+    (e: React.MouseEvent<HTMLButtonElement>, attribute: 'bibtex' | 'endnote' | 'apa' | 'harvard') => {
+      e.stopPropagation();
+
       const authors = reference.attributes.Authors.data.map((author) => author.attributes.Name);
       const title = reference.attributes.Title;
       const publisher = reference.attributes.Publisher;
@@ -68,28 +70,28 @@ const ReferenceCard = ({ reference }: Props) => {
         >
           <button
             className='border border-gray-400 px-8 py-1 rounded text-gray-600 w-3/4 flex gap-2 justify-between items-center hover:bg-gray-200 active:bg-gray-400'
-            onClick={() => onCopyClick('bibtex')}
+            onClick={(e) => onCopyClick(e, 'bibtex')}
           >
             <Copy />
             <span>BibTex</span>
           </button>
           <button
             className='border border-gray-400 px-8 py-1 rounded text-gray-600 w-3/4 flex gap-2 justify-between items-center hover:bg-gray-200 active:bg-gray-400'
-            onClick={() => onCopyClick('endnote')}
+            onClick={(e) => onCopyClick(e, 'endnote')}
           >
             <Copy />
             <span>EndNote</span>
           </button>
           <button
             className='border border-gray-400 px-8 py-1 rounded text-gray-600 w-3/4 flex gap-2 justify-between items-center hover:bg-gray-200 active:bg-gray-400'
-            onClick={() => onCopyClick('harvard')}
+            onClick={(e) => onCopyClick(e, 'harvard')}
           >
             <Copy />
             <span>Harvard</span>
           </button>
           <button
             className='border border-gray-400 px-8 py-1 rounded text-gray-600 w-3/4 flex gap-2 justify-between items-center hover:bg-gray-200 active:bg-gray-400'
-            onClick={() => onCopyClick('apa')}
+            onClick={(e) => onCopyClick(e, 'apa')}
           >
             <Copy />
             <span>APA</span>
