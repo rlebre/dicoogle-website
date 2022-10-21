@@ -8,6 +8,7 @@ import Footer from '../components/footer/Footer';
 import { Modal } from '../components/modal';
 import Navbar from '../components/navbar/Navbar';
 import ScrollToTheTop from '../components/scroll-top/ScrollToTheTop';
+import TransitionLayout from '../layout/TransitionLayout';
 import * as gtag from '../lib/gtag';
 import '../styles/globals.scss';
 
@@ -63,7 +64,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
 
         <Navbar />
-        <Component {...pageProps} />
+
+        <TransitionLayout>
+          <Component {...pageProps} />
+        </TransitionLayout>
 
         <Footer />
 

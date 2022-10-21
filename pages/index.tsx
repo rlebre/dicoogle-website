@@ -92,7 +92,7 @@ const features = [
     description: [
       'Platform Independent (Windows, Linux, Mac)',
       'Free and proprietary plugins are available',
-      'Licence: GPL v3'
+      'License: GPL v3'
     ]
   }
 ];
