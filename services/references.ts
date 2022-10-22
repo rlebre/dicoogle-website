@@ -1,5 +1,5 @@
 export const getReferences = () => {
-  return fetch(`${process.env.CMS_URL}/api/references?populate=Authors&populate=Category`)
+  return fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/references?populate=Authors&populate=Category`)
     .then((res) => res.json())
     .then((res) => res.data);
 };
