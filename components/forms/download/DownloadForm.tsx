@@ -10,7 +10,7 @@ import styles from './download-form.module.scss';
 interface Props {
   countries: Country[];
   release: Release;
-  onSubmit: (data: DownloadFormInterface, release: Release, recaptchaToken: string | undefined) => void;
+  onSubmit: (data: DownloadFormInterface, release: Release, recaptchaToken?: string) => void;
 }
 
 const DownloadForm = ({ countries, release, onSubmit }: Props) => {
