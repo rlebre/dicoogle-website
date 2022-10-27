@@ -19,31 +19,27 @@ const CookiesConsentBanner = () => {
     [setChose]
   );
 
-  return (
-    <>
-      {chose === 'NA' && (
-        <div className={styles.cookies__consent}>
-          <span className='font-medium w-7/8'>
-            This website uses cookies to ensure to gather anonymous data for statistical purposes. If you decline we
-            will stop to track your session.
-          </span>
-          <div className='flex flex-wrap gap-2 justify-end'>
-            <button
-              className={styles.cookies__accept}
-              onClick={() => {
-                cookiesAccepted('ACCEPTED');
-              }}
-            >
-              Accept
-            </button>
-            <button className={styles.cookies__decline} onClick={() => cookiesAccepted('DECLINED')}>
-              Decline
-            </button>
-          </div>
-        </div>
-      )}
-    </>
-  );
+  return chose === 'NA' ? (
+    <div className={styles.cookies__consent}>
+      <span className='font-medium w-7/8'>
+        This website uses cookies to ensure to gather anonymous data for statistical purposes. If you decline we will
+        stop to track your session.
+      </span>
+      <div className='flex flex-wrap gap-2 justify-end'>
+        <button
+          className={styles.cookies__accept}
+          onClick={() => {
+            cookiesAccepted('ACCEPTED');
+          }}
+        >
+          Accept
+        </button>
+        <button className={styles.cookies__decline} onClick={() => cookiesAccepted('DECLINED')}>
+          Decline
+        </button>
+      </div>
+    </div>
+  ) : null;
 };
 
 export const CookieConsentProvider = ({ children }: { children: React.ReactNode }) => {
