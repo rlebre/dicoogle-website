@@ -9,11 +9,15 @@ export const getAbout = () => {
 };
 
 export const getApplications = () => {
-  return fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/home-applications?populate=image`).then((res) => res.json());
+  return fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/cards?filters[type][$eq]=application&populate=*`).then((res) =>
+    res.json()
+  );
 };
 
 export const getFeatures = () => {
-  return fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/home-features?populate=image`).then((res) => res.json());
+  return fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/cards?filters[type][$eq]=feature&populate=*`).then((res) =>
+    res.json()
+  );
 };
 
 export const getResources = () => {

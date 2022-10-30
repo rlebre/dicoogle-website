@@ -37,52 +37,48 @@ const Home: NextPage<HomeProps> = ({ about, applications, features, resources, c
         ))}
       </Carousel>
 
-      <div className='container'>
-        <main className={styles.main}>
-          <FlatSection title='About' subtitle1={about.subtitle1} subtitle2={about.subtitle2}>
-            <div className='flex items-center'>{about.about}</div>
-          </FlatSection>
+      <main className={styles.main}>
+        <FlatSection title='About' subtitle1={about.subtitle1} subtitle2={about.subtitle2}>
+          <div className='flex items-center'>{about.about}</div>
+        </FlatSection>
 
-          <GridSection title='Applications'>
-            {applications.map(({ attributes }) => (
-              <HomeCard key={`application-${attributes.title}`} {...attributes}></HomeCard>
-            ))}
-          </GridSection>
+        <GridSection title='Applications'>
+          {applications.map(({ attributes }) => (
+            <HomeCard key={`application-${attributes.title}`} {...attributes}></HomeCard>
+          ))}
+        </GridSection>
 
-          <GridSection title='Features'>
-            {features.map(({ attributes }) => (
-              <HomeCard key={`feature-${attributes.title}`} {...attributes}></HomeCard>
-            ))}
-          </GridSection>
+        <GridSection title='Features'>
+          {features.map(({ attributes }) => (
+            <HomeCard key={`feature-${attributes.title}`} {...attributes}></HomeCard>
+          ))}
+        </GridSection>
 
-          <GridSection title='Resources'>
-            <>
-              <div className='w-full'>
-                <p>Dicoogle is a free and open source software.</p>
-                <p>The code is available and you can freely contribute to its development.</p>
+        <GridSection title='Resources'>
+          <div className='w-full'>
+            <p>Dicoogle is a free and open source software.</p>
+            <p>The code is available and you can freely contribute to its development.</p>
 
-                <p>
-                  Dicoogle source code is under{' '}
-                  <Link href='http://www.gnu.org/copyleft/gpl.en.html'>
-                    <a rel='nofollow noreferrer' target='_blank' className='font-semibold'>
-                      GNU General Public License v3.0.
-                    </a>
-                  </Link>
-                </p>
-              </div>
+            <p>
+              Dicoogle source code is under{' '}
+              <Link href='http://www.gnu.org/copyleft/gpl.en.html'>
+                <a rel='nofollow noreferrer' target='_blank' className='font-semibold'>
+                  GNU General Public License v3.0.
+                </a>
+              </Link>
+            </p>
+          </div>
 
-              {resources.map(({ attributes }) => (
-                <Button
-                  key={`resource-${attributes.title}`}
-                  href={attributes.link}
-                  label={attributes.title}
-                  style='button2'
-                />
-              ))}
-            </>
-          </GridSection>
-        </main>
-      </div>
+          {resources.map(({ attributes }) => (
+            <Button
+              key={`resource-${attributes.title}`}
+              href={attributes.link}
+              label={attributes.title}
+              style='button2'
+            />
+          ))}
+        </GridSection>
+      </main>
     </>
   );
 };
