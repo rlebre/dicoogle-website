@@ -9,10 +9,11 @@ import GridSection from '../components/grid-section/GridSection';
 import HomeCard from '../components/home-card/HomeCard';
 import { getAbout, getApplications, getCarouselImages, getFeatures, getResources } from '../services/index-page';
 import styles from '../styles/Home.module.scss';
+import { Card } from '../interfaces/Card';
 
 interface HomeProps {
   about: any;
-  applications: any;
+  applications: Card[];
   features: any;
   resources: any;
   carouselImages: any;

@@ -3,8 +3,8 @@ import React from 'react';
 
 interface Props {
   image: { data: { attributes: { url: string } } };
-  imageHeight: string;
-  imageWidth: string;
+  imageHeight: number;
+  imageWidth: number;
   title?: string;
   description: string[];
   circletagStyles?: React.CSSProperties;
