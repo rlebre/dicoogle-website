@@ -38,10 +38,9 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      documentationTypes,
-
-      revalidate: 60 * 60 * 6 // revalidate every 6 hours
-    }
+      documentationTypes
+    },
+    revalidate: 60 * 60 * 6 // revalidate every 6 hours
   };
 };
 

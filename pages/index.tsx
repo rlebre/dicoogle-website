@@ -99,10 +99,9 @@ export const getStaticProps = async () => {
       applications,
       features,
       resources,
-      carouselImages,
-
-      revalidate: 60 * 60 * 6 // revalidate every 6 hours
-    }
+      carouselImages
+    },
+    revalidate: 60 * 60 * 6 // revalidate every 6 hours
   };
 };
 
