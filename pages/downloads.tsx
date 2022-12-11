@@ -10,13 +10,13 @@ import LoadingSpinner from '../components/loading-spinner';
 import { ModalService } from '../components/modal/service';
 import Country from '../interfaces/Country';
 import DownloadFormInterface from '../interfaces/DownloadFormInterface';
-import Release from '../interfaces/GithubRelease';
+import GhRelease from '../interfaces/GithubRelease';
 import { requestDownload } from '../services/download';
 import { getReleases } from '../services/github';
 
 interface Props {
   countries: Country[];
-  releases: Release[];
+  releases: GhRelease[];
 }
 
 const Downloads = ({ releases, countries }: Props) => {
@@ -32,7 +32,7 @@ const Downloads = ({ releases, countries }: Props) => {
     });
 
   const onFormSubmit = useCallback(
-    (data: DownloadFormInterface, release: Release, recaptchaToken: string | undefined) => {
+    (data: DownloadFormInterface, release: GhRelease, recaptchaToken: string | undefined) => {
       setSubmitting(true);
       requestDownload({ ...data, token: recaptchaToken }, release)
         .then(() =>
@@ -178,18 +178,10 @@ export const getStaticProps = async () => {
   const ghData = await getReleases();
 
   const releases = ghData
-    .map(
-      (release: any): Release => ({
-        id: release.id,
-        tag_name: release.tag_name,
-        published_at: release.published_at,
-        body: release.body,
-        downloadLink: release.assets[0]?.browser_download_url || ''
-      })
-    )
     .filter((release) => release.downloadLink !== '')
     .sort(
-      (release1: Release, release2: Release) => Date.parse(release2.published_at) - Date.parse(release1.published_at)
+      (release1: GhRelease, release2: GhRelease) =>
+        Date.parse(release2.published_at) - Date.parse(release1.published_at)
     );
 
   const dataFilePath = path.join(process.cwd(), 'public/resources', 'countries.json');

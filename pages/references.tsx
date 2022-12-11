@@ -2,10 +2,12 @@ import type { NextPage } from 'next';
 import React from 'react';
 import FlatSection from '../components/flat-section/FlatSection';
 import ReferenceTabbedView from '../components/tab-view/references';
+import { CmsResponse } from '../interfaces/APICommon';
+import { ReferenceAttributes } from '../interfaces/Reference';
 import { getReferences } from '../services/references';
 
 interface ReferencesProps {
-  references: any;
+  references: CmsResponse<ReferenceAttributes>;
 }
 
 const References: NextPage<ReferencesProps> = ({ references }: ReferencesProps) => {

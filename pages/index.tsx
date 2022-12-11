@@ -3,20 +3,24 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '../components/button/Button';
-import Carousel, { CarouselItem } from '../components/carousel';
+import Carousel from '../components/carousel';
 import FlatSection from '../components/flat-section/FlatSection';
 import GridSection from '../components/grid-section/GridSection';
 import HomeCard from '../components/home-card/HomeCard';
 import { getAbout, getApplications, getCarouselImages, getFeatures, getResources } from '../services/index-page';
 import styles from '../styles/Home.module.scss';
-import { Card } from '../interfaces/Card';
+import { Data } from '../interfaces/APICommon';
+import { CardAttributes } from '../interfaces/Card';
+import { AboutAttributes } from '../interfaces/About';
+import { ResourceAttributes } from '../interfaces/Resource';
+import { ImageDatum } from '../interfaces/CarouselImage';
 
 interface HomeProps {
-  about: any;
-  applications: Card[];
-  features: any;
-  resources: any;
-  carouselImages: any;
+  about: Data<AboutAttributes>;
+  applications: Data<CardAttributes>[];
+  features: Data<CardAttributes>[];
+  resources: Data<ResourceAttributes>[];
+  carouselImages: ImageDatum[];
 }
 
 const Home: NextPage<HomeProps> = ({ about, applications, features, resources, carouselImages }: HomeProps) => {
@@ -34,24 +38,25 @@ const Home: NextPage<HomeProps> = ({ about, applications, features, resources, c
             width={attributes.width}
             height={attributes.height}
             alt={attributes.caption}
+            priority={true}
           />
         ))}
       </Carousel>
 
       <main className={styles.main}>
-        <FlatSection title='About' subtitle1={about.subtitle1} subtitle2={about.subtitle2}>
-          <div className='flex items-center'>{about.about}</div>
+        <FlatSection title='About' subtitle1={about.attributes.subtitle1} subtitle2={about.attributes.subtitle2}>
+          <div className='flex items-center'>{about.attributes.description}</div>
         </FlatSection>
 
         <GridSection title='Applications'>
           {applications.map(({ attributes }) => (
-            <HomeCard key={`application-${attributes.title}`} {...attributes}></HomeCard>
+            <HomeCard key={`application-${attributes.title}`} {...attributes} />
           ))}
         </GridSection>
 
         <GridSection title='Features'>
           {features.map(({ attributes }) => (
-            <HomeCard key={`feature-${attributes.title}`} {...attributes}></HomeCard>
+            <HomeCard key={`feature-${attributes.title}`} {...attributes} />
           ))}
         </GridSection>
 
@@ -70,14 +75,16 @@ const Home: NextPage<HomeProps> = ({ about, applications, features, resources, c
             </p>
           </div>
 
-          {resources.map(({ attributes }) => (
-            <Button
-              key={`resource-${attributes.title}`}
-              href={attributes.link}
-              label={attributes.title}
-              style='button2'
-            />
-          ))}
+          <>
+            {resources.map(({ attributes }) => (
+              <Button
+                key={`resource-${attributes.title}`}
+                href={attributes.link}
+                label={attributes.title}
+                style='button2'
+              />
+            ))}
+          </>
         </GridSection>
       </main>
     </>
@@ -85,9 +92,7 @@ const Home: NextPage<HomeProps> = ({ about, applications, features, resources, c
 };
 
 export const getStaticProps = async () => {
-  const {
-    data: { attributes: about }
-  } = await getAbout();
+  const { data: about } = await getAbout();
   const { data: applications } = await getApplications();
   const { data: features } = await getFeatures();
   const { data: resources } = await getResources();

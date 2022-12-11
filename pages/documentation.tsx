@@ -3,10 +3,12 @@ import React from 'react';
 import Button from '../components/button/Button';
 import GridSection from '../components/grid-section/GridSection';
 import HomeCard from '../components/home-card/HomeCard';
+import { CmsResponse } from '../interfaces/APICommon';
+import { CardAttributes } from '../interfaces/Card';
 import { getDocumentation } from '../services/documentation';
 
 interface DocumentationProps {
-  documentationTypes: any;
+  documentationTypes: CmsResponse<CardAttributes>;
 }
 
 const Documentation = ({ documentationTypes }: DocumentationProps) => {
@@ -18,7 +20,7 @@ const Documentation = ({ documentationTypes }: DocumentationProps) => {
 
       <div className='container pt-16'>
         <GridSection title='Documentation'>
-          {documentationTypes.map(({ attributes }) => (
+          {documentationTypes.data.map(({ attributes }) => (
             <HomeCard
               key={`documentation-${attributes.title}`}
               {...attributes}

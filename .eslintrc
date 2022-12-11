@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "next",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "root": true,
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "error",
+    "react/react-in-jsx-scope": "off"
+  }
+}
