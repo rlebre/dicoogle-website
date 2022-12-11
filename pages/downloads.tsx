@@ -10,7 +10,7 @@ import LoadingSpinner from '../components/loading-spinner';
 import { ModalService } from '../components/modal/service';
 import Country from '../interfaces/Country';
 import DownloadFormInterface from '../interfaces/DownloadFormInterface';
-import GhRelease from '../interfaces/GithubRelease';
+import { GhRelease } from '../interfaces/GithubRelease';
 import { requestDownload } from '../services/download';
 import { getReleases } from '../services/github';
 
@@ -178,7 +178,7 @@ export const getStaticProps = async () => {
   const ghData = await getReleases();
 
   const releases = ghData
-    .filter((release) => release.downloadLink !== '')
+    .filter((release) => release.assets[0]?.browser_download_url !== '')
     .sort(
       (release1: GhRelease, release2: GhRelease) =>
         Date.parse(release2.published_at) - Date.parse(release1.published_at)
@@ -190,7 +190,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      releases: releases.filter((release) => release.downloadLink !== ''),
+      releases: releases.filter((release) => release.assets[0]?.browser_download_url !== ''),
       countries
     },
 
