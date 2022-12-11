@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { CmsResponse } from '../../interfaces/APICommon';
+import { ReferenceAttributes } from '../../interfaces/Reference';
 import ReferenceCard from './reference-card';
 import styles from './tab-view.module.scss';
 
 interface Props {
-  references: any;
+  references: CmsResponse<ReferenceAttributes>;
 }
 
 const ReferenceTabbedView = ({ references }: Props) => {
@@ -12,13 +14,13 @@ const ReferenceTabbedView = ({ references }: Props) => {
   const magazines = useRef([]);
 
   useEffect(() => {
-    journals.current = references.filter(
+    journals.current = references.data.filter(
       (reference) => reference.attributes.Category.data.attributes.Name === 'journal'
     );
-    conferences.current = references.filter(
+    conferences.current = references.data.filter(
       (reference) => reference.attributes.Category.data.attributes.Name === 'conference'
     );
-    magazines.current = references.filter(
+    magazines.current = references.data.filter(
       (reference) => reference.attributes.Category.data.attributes.Name === 'magazine'
     );
   }, [references]);
@@ -56,7 +58,7 @@ const ReferenceTabbedView = ({ references }: Props) => {
 
       <div id='tab-contents'>
         <div id='all' className={`${selectedTab === 0 ? '' : 'hidden'} p-4'`}>
-          {references.map((reference) => (
+          {references.data.map((reference) => (
             <ReferenceCard key={`all-${reference.id}`} reference={reference} />
           ))}
         </div>

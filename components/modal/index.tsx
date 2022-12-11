@@ -83,7 +83,7 @@ export const Modal = () => {
   );
 };
 
-const TypeRenderer = ({ type }) => {
+const TypeRenderer = ({ type }: { type: ModalTypes }) => {
   switch (type) {
     case ModalTypes.SUCCESS:
       return <Success className='h-10 w-10 fill-green-700' />;

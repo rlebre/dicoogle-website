@@ -1,10 +1,12 @@
 import React, { useCallback, useRef } from 'react';
+import { Data } from '../../../interfaces/APICommon';
+import { ReferenceAttributes } from '../../../interfaces/Reference';
 import Copy from '../../icons/Copy';
 import { ModalService } from '../../modal/service';
 import styles from './reference-card.module.scss';
 
 interface Props {
-  reference: any;
+  reference: Data<ReferenceAttributes>;
 }
 
 const ReferenceCard = ({ reference }: Props) => {
@@ -14,6 +16,7 @@ const ReferenceCard = ({ reference }: Props) => {
     (e: React.MouseEvent<HTMLButtonElement>, attribute: 'bibtex' | 'endnote' | 'apa' | 'harvard') => {
       e.stopPropagation();
 
+      let authorsString: string;
       const authors = reference.attributes.Authors.data.map((author) => author.attributes.Name);
       const title = reference.attributes.Title;
       const publisher = reference.attributes.Publisher;
@@ -27,11 +30,11 @@ const ReferenceCard = ({ reference }: Props) => {
           navigator.clipboard.writeText(reference.attributes.Endnote);
           break;
         case 'apa':
-          var authorsString = authors.slice(0, -1).join(', ') + ' & ' + authors.slice(-1);
+          authorsString = authors.slice(0, -1).join(', ') + ' & ' + authors.slice(-1);
           navigator.clipboard.writeText(`${authorsString} (${year}). ${title}. ${publisher}.`);
           break;
         case 'harvard':
-          var authorsString = authors.slice(0, -1).join(', ') + ' and ' + authors.slice(-1);
+          authorsString = authors.slice(0, -1).join(', ') + ' and ' + authors.slice(-1);
           navigator.clipboard.writeText(`${authorsString} (${year}). ${title}. ${publisher}.`);
           break;
       }

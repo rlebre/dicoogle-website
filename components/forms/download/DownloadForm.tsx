@@ -3,14 +3,14 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useForm } from 'react-hook-form';
 import Country from '../../../interfaces/Country';
 import DownloadFormInterface from '../../../interfaces/DownloadFormInterface';
-import Release from '../../../interfaces/GithubRelease';
+import { GhRelease } from '../../../interfaces/GithubRelease';
 import FormInput from '../input/FormInput';
 import styles from './download-form.module.scss';
 
 interface Props {
   countries: Country[];
-  release: Release;
-  onSubmit: (data: DownloadFormInterface, release: Release, recaptchaToken?: string) => void;
+  release: GhRelease;
+  onSubmit: (data: DownloadFormInterface, release: GhRelease, recaptchaToken?: string) => void;
 }
 
 const DownloadForm = ({ countries, release, onSubmit }: Props) => {
