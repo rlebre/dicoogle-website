@@ -2,10 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'ruilebre.com'],
-    loader: "default",
-  },
-}
+    domains: ['localhost', 'ruilebre.com', 'dicoogle.com'],
+    loader: 'default'
+  }
+};
 
-
-module.exports = nextConfig
+module.exports = nextConfig;

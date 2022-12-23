@@ -21,8 +21,10 @@ const References: NextPage<ReferencesProps> = ({ references }: ReferencesProps) 
 };
 
 export const getStaticProps = async () => {
-  const references = await getReferences();
+  let references = await getReferences();
+  const referencesSorted = references.data.sort((a, b) => b.attributes.Year - a.attributes.Year);
 
+  references = { ...references, data: referencesSorted };
   return {
     props: {
       references
