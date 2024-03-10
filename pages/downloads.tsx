@@ -178,7 +178,7 @@ export const getStaticProps = async () => {
   const ghData = await getReleases();
 
   const releases = ghData
-    .filter((release) => release.assets[0]?.browser_download_url !== '')
+    .filter((release) => !!release.assets[0]?.browser_download_url)
     .sort(
       (release1: GhRelease, release2: GhRelease) =>
         Date.parse(release2.published_at) - Date.parse(release1.published_at)
